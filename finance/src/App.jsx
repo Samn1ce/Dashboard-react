@@ -6,9 +6,9 @@ function App() {
 
   return (
 
-      <div className="w-full h-screen flex gap-8 bg-gray-200">
+      <div className="w-full flex gap-8 bg-gray-200">
         {/* side nav */}
-        <div className="w-1/5 bg-tintDark rounded-r-xl py-5">
+        <div className="w-1/5 h-screen sticky top-0 bg-tintDark rounded-r-xl py-5">
           {/* title */}
           <h1 className="font-bold text-3xl mx-8 mb-10 text-zinc-300">FINANCE</h1>
           {/* nav buttons */}
