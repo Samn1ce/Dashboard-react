@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+import { format } from "date-fns";
 import { NavLink } from "react-router-dom";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
@@ -31,6 +33,23 @@ function Overview() {
       },
     },
   };
+
+  const sorted = "latest";
+  const show = 5;
+
+  const sortedTransactions = useMemo(() => {
+    const done = [...Data.transactions];
+
+    if (sorted === "latest") {
+      return done.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else {
+      return;
+    }
+  }, [sorted]);
+
+  const startIndex = 0 * show;
+  const endIndex = startIndex + show;
+  const currentTransactions = sortedTransactions.slice(startIndex, endIndex);
 
   return (
     <div className="w-full">
@@ -125,74 +144,31 @@ function Overview() {
               </div>
             </div>
             {/* TRANSACTION LIST */}
-            <div className="flex justify-between items-center">
-              <h6 className="text-xs font-bold">Emma Richardson</h6>
-              <div className="text-right">
-                <div className="text-sm font-bold text-green-500">+$75.50</div>
-                <p className="text-xs font-semibold text-zinc-400">
-                  {new Date().toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </p>
-              </div>
-            </div>
-            <hr />
-            <div className="flex justify-between items-center">
-              <h6 className="text-xs font-bold">Emma Richardson</h6>
-              <div className="text-right">
-                <div className="text-sm font-bold text-green-500">+$75.50</div>
-                <p className="text-xs font-semibold text-zinc-400">
-                  {new Date().toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </p>
-              </div>
-            </div>
-            <hr />
-            <div className="flex justify-between items-center">
-              <h6 className="text-xs font-bold">Emma Richardson</h6>
-              <div className="text-right">
-                <div className="text-sm font-bold text-green-500">+$75.50</div>
-                <p className="text-xs font-semibold text-zinc-400">
-                  {new Date().toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </p>
-              </div>
-            </div>
-            <hr />
-            <div className="flex justify-between items-center">
-              <h6 className="text-xs font-bold">Emma Richardson</h6>
-              <div className="text-right">
-                <div className="text-sm font-bold text-green-500">+$75.50</div>
-                <p className="text-xs font-semibold text-zinc-400">
-                  {new Date().toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </p>
-              </div>
-            </div>
-            <hr />
-            <div className="flex justify-between items-center">
-              <h6 className="text-xs font-bold">Emma Richardson</h6>
-              <div className="text-right">
-                <div className="text-sm font-bold text-green-500">+$75.50</div>
-                <p className="text-xs font-semibold text-zinc-400">
-                  {new Date().toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </p>
-              </div>
+            <div className="">
+              {currentTransactions.map((c) => {
+                const formattedDate = format(new Date(c.date), "dd/MM/yyyy");
+                return (
+                  <>
+                    <div className="flex justify-between items-center py-3">
+                      <h6 className="text-xs font-bold">{c.name}</h6>
+                      <div className="text-right flex flex-col gap-2">
+                        <div
+                          className={`text-sm font-bold ${
+                            c.amount >= 0 ? "text-green-500" : "text-zinc-800"
+                          }`}
+                        >
+                          {c.amount >= 0 ? "+" : ""}
+                          {c.amount.toFixed(2)}
+                        </div>
+                        <p className="text-xs font-semibold text-zinc-400">
+                          {formattedDate}
+                        </p>
+                      </div>
+                    </div>
+                    <hr />
+                  </>
+                );
+              })}
             </div>
           </div>
         </div>
