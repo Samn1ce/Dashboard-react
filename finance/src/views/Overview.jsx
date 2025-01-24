@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { format } from "date-fns";
 import { NavLink } from "react-router-dom";
-import { Pie } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import Data from "../assets/data.json";
 import IconPots from "../components/icon/IconPots";
@@ -9,20 +9,18 @@ import IconPots from "../components/icon/IconPots";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function Overview() {
-  // Pie chart data and options
-  const pieData = {
-    labels: ["New Laptop", "Savings", "Gift", "Concert Ticket"],
+  const doughnutData = {
+    labels: Data.budgets.map((b) => b.category), // Categories as labels
     datasets: [
       {
-        label: "Expenses",
-        data: [150, 250, 100, 75],
-        backgroundColor: ["#4CAF50", "#FF6384", "#36A2EB", "#FFCE56"],
-        hoverBackgroundColor: ["#45a049", "#ff5a5f", "#329ddf", "#ffbb33"],
+        data: Data.budgets.map((b) => b.spent), // Spent amounts as data
+        backgroundColor: Data.budgets.map((b) => b.theme), // Theme colors for each category
+        hoverBackgroundColor: Data.budgets.map((b) => b.theme), // Optional hover effect
       },
     ],
   };
 
-  const pieOptions = {
+  const doughnutOptions = {
     responsive: true,
     plugins: {
       legend: {
@@ -33,6 +31,8 @@ function Overview() {
       },
     },
   };
+  const totalSpent = Data.budgets.reduce((sum, b) => sum + b.spent, 0);
+  const totalMaximum = Data.budgets.reduce((sum, b) => sum + b.maximum, 0);
 
   const sorted = "latest";
   const show = 5;
@@ -186,20 +186,20 @@ function Overview() {
             <div className="flex gap-4 max-w-[500px]">
               <div className="flex mx-auto justify-center my-8">
                 {/* PIE CHART */}
-                <div className="relative w-52 h-52">
-                  <Pie data={pieData} options={pieOptions} />
-                  <div className="text-3xl font-bold absolute inset-0 w-3/4 h-3/4 border-2 bg-white m-auto rounded-full flex justify-center items-center">
-                    {" "}
-                    $
-                    {pieData.datasets[0].data.reduce(
-                      (acc, value) => acc + value,
-                      0
-                    )}
+                <div className="relative w-60 h-60">
+                  <Doughnut data={doughnutData} options={doughnutOptions} />
+                  <div className="absolute transform top-1/2 -translate-y-1/2 -translate-x-1/2 left-1/2 w-44 h-44 rounded-full bg-zinc-200/25 flex justify-center items-center">
+                    <div className="w-36 h-36 rounded-full bg-white flex flex-col justify-center items-center">
+                      <div className="font-bold text-3xl">${totalSpent}</div>
+                      <span className="text-sm text-zinc-500">
+                        of ${totalMaximum} limit
+                      </span>
+                    </div>
                   </div>
                 </div>
                 {/* LIST */}
                 <div className="grid gap-4">
-                  {pieData.labels.map((label, index) => (
+                  {doughnutData.labels.map((label, index) => (
                     <div
                       key={index}
                       className="flex items-center justify-start"
@@ -208,7 +208,7 @@ function Overview() {
                         className="w-1 h-10 border-2 rounded-lg mx-5"
                         style={{
                           borderColor:
-                            pieData.datasets[0].backgroundColor[index],
+                            doughnutData.datasets[0].backgroundColor[index],
                         }}
                       ></div>
                       <div>
@@ -216,7 +216,7 @@ function Overview() {
                           {label}
                         </p>
                         <p className="text-base font-bold">
-                          ${pieData.datasets[0].data[index]}
+                          ${doughnutData.datasets[0].data[index]}
                         </p>
                       </div>
                     </div>
