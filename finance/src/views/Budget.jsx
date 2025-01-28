@@ -1,10 +1,23 @@
+import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import Data from "../assets/data.json";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 function Budget() {
+  const { setAddNewBudget } = useOutletContext();
+  const [dropDown, setDropDown] = useState(false);
+
+  const toggleDropdown = (index) => {
+    (prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    });
+  };
+
   // Map JSON data to the chart format
+  setDropDown;
   const doughnutData = {
     labels: Data.budgets.map((b) => b.category), // Categories as labels
     datasets: [
@@ -45,7 +58,10 @@ function Budget() {
     <div className="w-full">
       <div className="w-full flex justify-between items-center my-8">
         <p className="text-3xl font-bold">Budget</p>
-        <button className="py-2 px-4 rounded-md bg-black text-white">
+        <button
+          onClick={() => setAddNewBudget(true)}
+          className="py-2 px-4 rounded-md bg-black text-white"
+        >
           +Add New Budget
         </button>
       </div>
@@ -68,8 +84,8 @@ function Budget() {
             <p className="text-black text-2xl font-bold mb-5">
               Spending Summary
             </p>
-            {Data.budgets.map((b) => (
-              <>
+            {Data.budgets.map((b, index) => (
+              <div key={index}>
                 <div className="w-full flex justify-between items-center">
                   <div className="flex gap-4 justify-center items-center">
                     <p
@@ -87,7 +103,7 @@ function Budget() {
                   </div>
                 </div>
                 <hr className="my-5" />
-              </>
+              </div>
             ))}
           </div>
         </div>
@@ -95,7 +111,7 @@ function Budget() {
           {Data.budgets.map((b, index) => (
             <div key={index} className="bg-white w-full rounded-md p-8 mb-5">
               <div className="flex flex-col gap-4 mb-4">
-                <div className="flex justify-between items-center w-full">
+                <div className="flex justify-between items-center w-full relative">
                   <div className="flex justify-center items-center gap-4">
                     <div
                       className="w-4 h-4 rounded-full bg-green-900"
@@ -103,7 +119,23 @@ function Budget() {
                     ></div>
                     <p className="text-2xl font-bold">{b.category}</p>
                   </div>
-                  <p>...</p>
+                  <p
+                    onClick={() => toggleDropdown(index)}
+                    className="cursor-pointer"
+                  >
+                    ...
+                  </p>
+                  <div
+                    className={`absolute top-0 right-0 w-36 flex-col justify-center items-center bg-zinc-700/10 p-2 rounded-lg backdrop-blur-sm font-semibold transition-all duration-300 ${
+                      dropDown[index]
+                        ? "flex h-20 opacity-100"
+                        : "flex h-0 opacity-0"
+                    }`}
+                  >
+                    <p className="cursor-pointer">Edit Budget</p>
+                    <hr className="w-full border0.5 border-zinc-300 my-2" />
+                    <p className="text-red-500 cursor-pointer">Delete Budget</p>
+                  </div>
                 </div>
                 <p className="text-gray-600">
                   Maximum Of ${b.maximum.toFixed(2)}

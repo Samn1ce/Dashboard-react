@@ -1,48 +1,21 @@
+import { useState } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import IconOverview from "./components/icon/IconOverview";
 import IconTransaction from "./components/icon/IconTransaction";
 import IconBudget from "./components/icon/IconBudget";
 import IconPots from "./components/icon/IconPots";
 import IconRb from "./components/icon/IconRb";
-import IconCancel from "./components/icon/IconCancel";
+import NewBudget from "./components/NewBudget";
 
 function App() {
+  const [addNewBudget, setAddNewBudget] = useState(false);
+
   return (
     <div className="w-full flex bg-gray-200">
-      <div className="absolute top-0 z-20 bg-black/70 w-full h-screen flex justify-center items-center">
-        <div className="bg-white w-[560px] h-[490px] rounded-md py-5 px-8 flex flex-col gap-4">
-          <div className="flex justify-between items-center">
-            <p className="text-3xl font-bold">Add New Budget</p>
-            <IconCancel />
-          </div>
-          <p className="text-zinc-600">
-            Choose a category to set a spending budget. These categories can
-            help you monitor spending.
-          </p>
-          <div className="w-full">
-            <div className="w-full">
-              <p className="font-semibold text-zinc-500 text-sm">
-                Budget Category
-              </p>
-              <select className="w-full border border-black h-10 rounded-md py-1 px-5">
-                <option className="text-xl">Entertainment</option>
-              </select>
-            </div>
-            <div className="w-full">
-              <p className="font-semibold text-zinc-500 text-sm">
-                Maximum Spend
-              </p>
-              <div className="w-full border border-black h-10 rounded-md py-1 px-5 flex">
-                <input type="text" disabled placeholder="$" className="w-3" />
-                <input
-                  type="number"
-                  className="text-xl flex-grow outline-none"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <NewBudget
+        addNewBudget={addNewBudget}
+        setAddNewBudget={setAddNewBudget}
+      />
       {/* side nav */}
       <div className="w-1/5 h-screen sticky top-0 z-10 bg-tintDark rounded-r-xl py-5">
         {/* title */}
@@ -99,7 +72,7 @@ function App() {
       </div>
       {/* content */}
       <div className="w-3/4 mx-auto">
-        <Outlet />
+        <Outlet context={{ addNewBudget, setAddNewBudget }} />
       </div>
     </div>
   );
