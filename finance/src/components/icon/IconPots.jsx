@@ -1,10 +1,11 @@
-function IconPots() {
+// eslint-disable-next-line react/prop-types
+function IconPots({ isActive }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="26"
-      height="26"
-      fill="currentColor"
+      width="16"
+      height="16"
+      fill={isActive ? "#2D7979" : "currentColor"}
       className="bi bi-stack"
       viewBox="0 0 16 16"
     >

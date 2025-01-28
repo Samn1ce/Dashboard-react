@@ -144,18 +144,21 @@ function Budget() {
                 </div>
                 <div className="mt-5">
                   {getLatestTransactions(b.category).map((t, index) => (
-                    <div
-                      key={index}
-                      className="flex justify-between items-center"
-                    >
-                      <p className="font-semibold">{t.name}</p>
-                      <div className="text-sm text-right">
-                        <p className="font-bold">{t.amount.toFixed(2)}</p>
-                        <p className="text-zinc-500">
-                          {new Date(t.date).toLocaleDateString()}
-                        </p>
+                    <>
+                      <div
+                        key={index}
+                        className="flex justify-between items-center"
+                      >
+                        <p className="font-semibold">{t.name}</p>
+                        <div className="text-sm text-right">
+                          <p className="font-bold">{t.amount.toFixed(2)}</p>
+                          <p className="text-zinc-500">
+                            {new Date(t.date).toLocaleDateString()}
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                      <hr className="my-2 border-0.5 border-zinc-300" />
+                    </>
                   ))}
                 </div>
               </div>
