@@ -2,21 +2,24 @@ import IconCancel from "./icon/IconCancel";
 import Data from "../assets/data.json";
 
 // eslint-disable-next-line react/prop-types
-function NewBudget({ addNewBudget, setAddNewBudget }) {
+function NewBudget({ modal, setmodal, newBudgetModal }) {
   return (
     <div
       className={`absolute top-0 z-20 bg-black/70 w-full h-screen justify-center items-center ${
-        addNewBudget ? "flex" : "hidden"
+        modal ? "flex" : "hidden"
       }`}
     >
       <div className="bg-white w-[560px] rounded-md py-5 px-8 flex flex-col gap-4">
         <div className="flex justify-between items-center">
-          <p className="text-3xl font-bold">Add New Budget</p>
-          <IconCancel onClick={() => setAddNewBudget(false)} />
+          <p className="text-3xl font-bold">
+            {newBudgetModal ? "Add New Budget" : "Edit Budget"}
+          </p>
+          <IconCancel onClick={() => setmodal(false)} />
         </div>
         <p className="text-zinc-600">
-          Choose a category to set a spending budget. These categories can help
-          you monitor spending.
+          {newBudgetModal
+            ? "Choose a category to set a spending budget. These categories can help you monitor spending."
+            : "As your budgets change, feel free to update your spending limits."}
         </p>
         <div className="w-full flex flex-col gap-4">
           <div className="w-full">
@@ -55,10 +58,10 @@ function NewBudget({ addNewBudget, setAddNewBudget }) {
             </select>
           </div>
           <button
-            onClick={() => setAddNewBudget(false)}
+            onClick={() => setmodal(false)}
             className="bg-zinc-900 w-full p-3 rounded-md font-semibold text-zinc-200"
           >
-            Add Budget
+            {newBudgetModal ? "Add Budget" : "Save Changes"}
           </button>
         </div>
       </div>

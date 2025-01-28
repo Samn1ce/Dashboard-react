@@ -6,15 +6,21 @@ import IconBudget from "./components/icon/IconBudget";
 import IconPots from "./components/icon/IconPots";
 import IconRb from "./components/icon/IconRb";
 import NewBudget from "./components/NewBudget";
+import DeleteBudget from "./components/DeleteBudget";
 
 function App() {
-  const [addNewBudget, setAddNewBudget] = useState(false);
+  const [modal, setmodal] = useState(false);
+  const [newBudgetModal, setNewBudgetModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
 
   return (
     <div className="w-full flex bg-gray-200">
+      <DeleteBudget deleteModal={deleteModal} setDeleteModal={setDeleteModal} />
       <NewBudget
-        addNewBudget={addNewBudget}
-        setAddNewBudget={setAddNewBudget}
+        modal={modal}
+        setmodal={setmodal}
+        newBudgetModal={newBudgetModal}
+        setNewBudgetModal={setNewBudgetModal}
       />
       {/* side nav */}
       <div className="w-1/5 h-screen sticky top-0 z-10 bg-tintDark rounded-r-xl py-5">
@@ -72,7 +78,15 @@ function App() {
       </div>
       {/* content */}
       <div className="w-3/4 mx-auto">
-        <Outlet context={{ addNewBudget, setAddNewBudget }} />
+        <Outlet
+          context={{
+            modal,
+            setmodal,
+            newBudgetModal,
+            setNewBudgetModal,
+            setDeleteModal,
+          }}
+        />
       </div>
     </div>
   );
