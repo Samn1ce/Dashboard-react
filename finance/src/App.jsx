@@ -12,6 +12,12 @@ function App() {
   const [modal, setmodal] = useState(false);
   const [newBudgetModal, setNewBudgetModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+  // In your parent component/route
+  const [budgetToEdit, setBudgetToEdit] = useState(null);
+  const closeModal = () => {
+    setmodal(false);
+    setBudgetToEdit(null);
+  };
 
   return (
     <div className="w-full flex bg-gray-200">
@@ -21,6 +27,8 @@ function App() {
         setmodal={setmodal}
         newBudgetModal={newBudgetModal}
         setNewBudgetModal={setNewBudgetModal}
+        budgetToEdit={budgetToEdit}
+        closeModal={closeModal}
       />
       {/* side nav */}
       <div className="w-1/5 h-screen sticky top-0 z-10 bg-tintDark rounded-r-xl py-5">
@@ -85,6 +93,7 @@ function App() {
             newBudgetModal,
             setNewBudgetModal,
             setDeleteModal,
+            setBudgetToEdit,
           }}
         />
       </div>

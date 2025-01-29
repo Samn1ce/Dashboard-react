@@ -7,7 +7,8 @@ import Data from "../assets/data.json";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function Budget() {
-  const { setmodal, setNewBudgetModal, setDeleteModal } = useOutletContext();
+  const { setmodal, setNewBudgetModal, setDeleteModal, setBudgetToEdit } =
+    useOutletContext();
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownRef = useRef(null);
 
@@ -62,6 +63,24 @@ function Budget() {
     return categoryTransactions
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .slice(0, 3);
+  };
+
+  const handleEditClick = (e, budget) => {
+    e.stopPropagation();
+    setActiveDropdown(null); // Close dropdown
+    setBudgetToEdit({
+      category: budget.category,
+      maximum: budget.maximum,
+      theme: budget.theme,
+    });
+    setmodal(true); // Open modal
+    setNewBudgetModal(false); // Set edit mode
+  };
+
+  const handleDeleteClick = (e) => {
+    e.stopPropagation();
+    setActiveDropdown(null); // Close dropdown
+    setDeleteModal(true); // Open delete modal
   };
 
   return (
@@ -144,21 +163,19 @@ function Budget() {
                     <div
                       className={`absolute top-6 right-5 w-36 flex flex-col justify-center items-center bg-zinc-700/10 p-2 rounded-lg backdrop-blur-sm font-semibold transition-all duration-300 ${
                         activeDropdown === index
-                          ? "h-20 opacity-100"
+                          ? "h-24 opacity-100"
                           : "h-0 opacity-0"
                       }`}
                     >
                       <p
-                        onClick={() => {
-                          setmodal(true), setNewBudgetModal(false);
-                        }}
+                        onClick={(e) => handleEditClick(e, b)}
                         className="cursor-pointer w-full text-center hover:bg-zinc-200 rounded py-1"
                       >
                         Edit Budget
                       </p>
                       <hr className="w-full border-0.5 border-zinc-300 my-2" />
                       <p
-                        onClick={() => setDeleteModal(true)}
+                        onClick={handleDeleteClick}
                         className="cursor-pointer w-full text-center text-red-500 hover:bg-zinc-200 rounded py-1"
                       >
                         Delete Budget

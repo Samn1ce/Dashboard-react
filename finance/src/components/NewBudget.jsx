@@ -1,11 +1,36 @@
 import IconCancel from "./icon/IconCancel";
 import Data from "../assets/data.json";
+import { useState, useEffect } from "react";
 
 // eslint-disable-next-line react/prop-types
-function NewBudget({ modal, setmodal, newBudgetModal }) {
+function NewBudget({
+  modal,
+  setmodal,
+  newBudgetModal,
+  closeModal,
+  budgetToEdit,
+}) {
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [maxSpend, setMaxSpend] = useState("");
+  const [selectedTheme, setSelectedTheme] = useState("");
+
+  // Set the form values when editing
+  useEffect(() => {
+    if (!newBudgetModal && budgetToEdit) {
+      setSelectedCategory(budgetToEdit.category);
+      setMaxSpend(budgetToEdit.maximum);
+      setSelectedTheme(budgetToEdit.theme);
+    } else {
+      // Reset form when adding new budget
+      setSelectedCategory("");
+      setMaxSpend("");
+      setSelectedTheme("");
+    }
+  }, [newBudgetModal, budgetToEdit, modal]);
+
   return (
     <div
-      className={`absolute top-0 z-20 bg-black/70 w-full h-screen justify-center items-center ${
+      className={`fixed top-0 z-20 bg-black/70 w-full h-screen justify-center items-center ${
         modal ? "flex" : "hidden"
       }`}
     >
@@ -14,7 +39,7 @@ function NewBudget({ modal, setmodal, newBudgetModal }) {
           <p className="text-3xl font-bold">
             {newBudgetModal ? "Add New Budget" : "Edit Budget"}
           </p>
-          <IconCancel onClick={() => setmodal(false)} />
+          <IconCancel onClick={() => closeModal(false)} />
         </div>
         <p className="text-zinc-600">
           {newBudgetModal
@@ -26,9 +51,16 @@ function NewBudget({ modal, setmodal, newBudgetModal }) {
             <p className="font-semibold text-zinc-500 text-sm">
               Budget Category
             </p>
-            <select className="w-full border border-black h-10 rounded-md py-1 px-5">
+            <select
+              className="w-full border border-black h-10 rounded-md py-1 px-5"
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              <option value="" disabled>
+                {newBudgetModal ? "Select a category" : ""}
+              </option>
               {Data.budgets.map((b, index) => (
-                <option key={index} className="text-xl">
+                <option key={index} value={b.category}>
                   {b.category}
                 </option>
               ))}
@@ -38,27 +70,36 @@ function NewBudget({ modal, setmodal, newBudgetModal }) {
             <p className="font-semibold text-zinc-500 text-sm">Maximum Spend</p>
             <div className="w-full border border-black h-10 rounded-md py-1 px-5 flex">
               <input type="text" disabled placeholder="$" className="w-3" />
-              <input type="number" className="text-xl flex-grow outline-none" />
+              <input
+                type="number"
+                className="text-xl flex-grow outline-none"
+                value={maxSpend}
+                onChange={(e) => setMaxSpend(e.target.value)}
+              />
             </div>
           </div>
           <div className="w-full">
-            <p className="font-semibold text-zinc-500 text-sm">
-              Budget Category
-            </p>
-            <select className="w-full border border-black h-10 rounded-md py-1 px-5">
+            <p className="font-semibold text-zinc-500 text-sm">Theme Color</p>
+            <select
+              className="w-full border border-black h-10 rounded-md py-1 px-5"
+              value={selectedTheme}
+              onChange={(e) => setSelectedTheme(e.target.value)}
+            >
+              <option value="" disabled>
+                {newBudgetModal ? "Select a theme" : ""}
+              </option>
               {Data.budgets.map((b, index) => (
-                <option key={index} className="text-xl flex">
-                  <div
-                    className="h-5 w-5 rounded-full bg-black"
-                    style={{ backgroundColor: b.theme }}
-                  ></div>
-                  <p>{b.theme}</p>
+                <option key={index} value={b.theme} className="text-xl flex">
+                  {b.theme}
                 </option>
               ))}
             </select>
           </div>
           <button
-            onClick={() => setmodal(false)}
+            onClick={() => {
+              // Add your save/update logic here
+              setmodal(false);
+            }}
             className="bg-zinc-900 w-full p-3 rounded-md font-semibold text-zinc-200"
           >
             {newBudgetModal ? "Add Budget" : "Save Changes"}
