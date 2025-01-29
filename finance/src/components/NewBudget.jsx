@@ -111,11 +111,11 @@ function NewBudget({
 }
 
 NewBudget.propTypes = {
-  modal: PropTypes.boolean.isRequired,
-  setmodal: PropTypes.boolean.isRequired,
-  newBudgetModal: PropTypes.boolean.isRequired,
-  closeModal: PropTypes.boolean.isRequired,
-  budgetToEdit: PropTypes.boolean.isRequired,
+  modal: PropTypes.bool,
+  setmodal: PropTypes.func,
+  newBudgetModal: PropTypes.bool,
+  closeModal: PropTypes.func,
+  budgetToEdit: PropTypes.func,
 };
 
 export default NewBudget;

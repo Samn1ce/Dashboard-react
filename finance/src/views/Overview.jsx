@@ -145,10 +145,10 @@ function Overview() {
             </div>
             {/* TRANSACTION LIST */}
             <div className="">
-              {currentTransactions.map((c) => {
+              {currentTransactions.map((c, index) => {
                 const formattedDate = format(new Date(c.date), "dd/MM/yyyy");
                 return (
-                  <>
+                  <div key={index}>
                     <div className="flex justify-between items-center py-3">
                       <h6 className="text-xs font-bold">{c.name}</h6>
                       <div className="text-right flex flex-col gap-2">
@@ -166,7 +166,7 @@ function Overview() {
                       </div>
                     </div>
                     <hr />
-                  </>
+                  </div>
                 );
               })}
             </div>
