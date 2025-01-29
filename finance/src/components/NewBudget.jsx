@@ -1,8 +1,8 @@
+import PropTypes from "prop-types";
 import IconCancel from "./icon/IconCancel";
 import Data from "../assets/data.json";
 import { useState, useEffect } from "react";
 
-// eslint-disable-next-line react/prop-types
 function NewBudget({
   modal,
   setmodal,
@@ -57,7 +57,7 @@ function NewBudget({
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
               <option value="" disabled>
-                {newBudgetModal ? "Select a category" : ""}
+                {newBudgetModal ? "Select a Category" : ""}
               </option>
               {Data.budgets.map((b, index) => (
                 <option key={index} value={b.category}>
@@ -72,21 +72,21 @@ function NewBudget({
               <input type="text" disabled placeholder="$" className="w-3" />
               <input
                 type="number"
-                className="text-xl flex-grow outline-none"
+                className="text-xl flex-grow outline-none px-2"
                 value={maxSpend}
                 onChange={(e) => setMaxSpend(e.target.value)}
               />
             </div>
           </div>
           <div className="w-full">
-            <p className="font-semibold text-zinc-500 text-sm">Theme Color</p>
+            <p className="font-semibold text-zinc-500 text-sm">Theme</p>
             <select
               className="w-full border border-black h-10 rounded-md py-1 px-5"
               value={selectedTheme}
               onChange={(e) => setSelectedTheme(e.target.value)}
             >
               <option value="" disabled>
-                {newBudgetModal ? "Select a theme" : ""}
+                {newBudgetModal ? "Select a Theme" : ""}
               </option>
               {Data.budgets.map((b, index) => (
                 <option key={index} value={b.theme} className="text-xl flex">
@@ -109,5 +109,13 @@ function NewBudget({
     </div>
   );
 }
+
+NewBudget.propTypes = {
+  modal: PropTypes.boolean.isRequired,
+  setmodal: PropTypes.boolean.isRequired,
+  newBudgetModal: PropTypes.boolean.isRequired,
+  closeModal: PropTypes.boolean.isRequired,
+  budgetToEdit: PropTypes.boolean.isRequired,
+};
 
 export default NewBudget;
