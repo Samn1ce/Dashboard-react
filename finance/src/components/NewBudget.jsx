@@ -9,8 +9,6 @@ function NewBudget({
   newBudgetModal,
   closeModal,
   budgetToEdit,
-  // newPots,
-  // setNewPots,
   modalType,
 }) {
   const [selectedCategory, setSelectedCategory] = useState("");

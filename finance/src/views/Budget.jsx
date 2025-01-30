@@ -96,7 +96,7 @@ function Budget() {
         setModalType={setModalType}
         headerText="Budget"
         buttonText="+Add New Budget"
-        modalFor="Budget"
+        modalFor="budget"
       />
       <div className="w-full flex gap-4">
         {/* Left side with doughnut chart remains the same */}

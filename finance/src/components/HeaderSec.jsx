@@ -2,11 +2,9 @@ import PropTypes from "prop-types";
 
 function HeaderSec({
   setModal,
-  // setNewBudgetModal,
+  setModalType,
   headerText,
   buttonText,
-  // setNewPots,
-  setModalType,
   modalFor,
 }) {
   return (
