@@ -56,22 +56,28 @@ function NewBudget({
         <div className="w-full flex flex-col gap-4">
           <div className="w-full">
             <p className="font-semibold text-zinc-500 text-sm">
-              Budget Category
+              {modalType === "pots" ? "Pot Name" : "Budget Category"}
             </p>
-            <select
-              className="w-full border border-black h-10 rounded-md py-1 px-5"
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-            >
-              <option value="" disabled>
-                {newBudgetModal ? "Select a Category" : ""}
-              </option>
-              {Data.budgets.map((b, index) => (
-                <option key={index} value={b.category}>
-                  {b.category}
+            {modalType === "pots" ? (
+              <div className="w-full border border-black h-10 rounded-md py-1 px-5">
+                <input type="text" className="w-full h-full outline-none" />
+              </div>
+            ) : (
+              <select
+                className="w-full border border-black h-10 rounded-md py-1 px-5"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+              >
+                <option value="" disabled>
+                  {modalType === "budget" ? "Select a Category" : ""}
                 </option>
-              ))}
-            </select>
+                {Data.budgets.map((b, index) => (
+                  <option key={index} value={b.category}>
+                    {b.category}
+                  </option>
+                ))}
+              </select>
+            )}
           </div>
           <div className="w-full">
             <p className="font-semibold text-zinc-500 text-sm">Maximum Spend</p>
@@ -93,7 +99,9 @@ function NewBudget({
               onChange={(e) => setSelectedTheme(e.target.value)}
             >
               <option value="" disabled>
-                {newBudgetModal ? "Select a Theme" : ""}
+                {modalType === "budget" || modalType === "pots"
+                  ? "Select a Theme"
+                  : ""}
               </option>
               {Data.budgets.map((b, index) => (
                 <option key={index} value={b.theme} className="text-xl flex">
@@ -109,7 +117,11 @@ function NewBudget({
             }}
             className="bg-zinc-900 w-full p-3 rounded-md font-semibold text-zinc-200"
           >
-            {newBudgetModal ? "Add Budget" : "Save Changes"}
+            {modalType === "budget"
+              ? "Add Budget"
+              : modalType === "pots"
+              ? "Add Pots"
+              : "Save Changes"}
           </button>
         </div>
       </div>

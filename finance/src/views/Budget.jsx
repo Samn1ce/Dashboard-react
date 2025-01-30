@@ -4,6 +4,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import Data from "../assets/data.json";
 import HeaderSec from "../components/HeaderSec";
+import MenuDropDown from "../components/MenuDropDown";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -162,7 +163,15 @@ function Budget() {
                     >
                       ...
                     </p>
-                    <div
+                    <MenuDropDown
+                      activeDropdown={activeDropdown}
+                      handleDeleteClick={handleDeleteClick}
+                      handleEditClick={handleEditClick}
+                      index={index} // Pass the index
+                      budget={b} // Pass the budget object
+                    />
+
+                    {/* <div
                       className={`absolute top-6 right-5 w-36 flex flex-col justify-center items-center bg-zinc-700/10 p-2 rounded-lg backdrop-blur-sm font-semibold transition-all duration-300 ${
                         activeDropdown === index
                           ? "h-24 opacity-100"
@@ -182,7 +191,7 @@ function Budget() {
                       >
                         Delete Budget
                       </p>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 <p className="text-gray-600">
