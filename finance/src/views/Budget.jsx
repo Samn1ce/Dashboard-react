@@ -1,4 +1,3 @@
-import { useState, useRef, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
@@ -9,32 +8,8 @@ import MenuDropDown from "../components/MenuDropDown";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function Budget() {
-  const {
-    setModal,
-    setNewBudgetModal,
-    setDeleteModal,
-    setBudgetToEdit,
-    setModalType,
-  } = useOutletContext();
-  const [activeDropdown, setActiveDropdown] = useState(null);
-  const dropdownRef = useRef(null);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setActiveDropdown(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const toggleDropdown = (e, index) => {
-    e.stopPropagation(); // Prevent event from bubbling up
-    setActiveDropdown(activeDropdown === index ? null : index);
-  };
+  const { setModal, setDeleteModal, setBudgetToEdit, setModalType } =
+    useOutletContext();
 
   // Rest of your existing setup code remains the same
   const doughnutData = {
@@ -70,24 +45,6 @@ function Budget() {
     return categoryTransactions
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .slice(0, 3);
-  };
-
-  const handleEditClick = (e, budget) => {
-    e.stopPropagation();
-    setActiveDropdown(null); // Close dropdown
-    setBudgetToEdit({
-      category: budget.category,
-      maximum: budget.maximum,
-      theme: budget.theme,
-    });
-    setModal(true); // Open modal
-    setNewBudgetModal(false); // Set edit mode
-  };
-
-  const handleDeleteClick = (e) => {
-    e.stopPropagation();
-    setActiveDropdown(null); // Close dropdown
-    setDeleteModal(true); // Open delete modal
   };
 
   return (
@@ -156,43 +113,13 @@ function Budget() {
                     ></div>
                     <p className="text-2xl font-bold">{b.category}</p>
                   </div>
-                  <div ref={dropdownRef} className="relative">
-                    <p
-                      onClick={(e) => toggleDropdown(e, index)}
-                      className="cursor-pointer px-2"
-                    >
-                      ...
-                    </p>
-                    <MenuDropDown
-                      activeDropdown={activeDropdown}
-                      handleDeleteClick={handleDeleteClick}
-                      handleEditClick={handleEditClick}
-                      index={index} // Pass the index
-                      budget={b} // Pass the budget object
-                    />
-
-                    {/* <div
-                      className={`absolute top-6 right-5 w-36 flex flex-col justify-center items-center bg-zinc-700/10 p-2 rounded-lg backdrop-blur-sm font-semibold transition-all duration-300 ${
-                        activeDropdown === index
-                          ? "h-24 opacity-100"
-                          : "h-0 opacity-0"
-                      }`}
-                    >
-                      <p
-                        onClick={(e) => handleEditClick(e, b)}
-                        className="cursor-pointer w-full text-center hover:bg-zinc-200 rounded py-1"
-                      >
-                        Edit Budget
-                      </p>
-                      <hr className="w-full border-0.5 border-zinc-300 my-2" />
-                      <p
-                        onClick={handleDeleteClick}
-                        className="cursor-pointer w-full text-center text-red-500 hover:bg-zinc-200 rounded py-1"
-                      >
-                        Delete Budget
-                      </p>
-                    </div> */}
-                  </div>
+                  <MenuDropDown
+                    setModal={setModal}
+                    setDeleteModal={setDeleteModal}
+                    setBudgetToEdit={setBudgetToEdit}
+                    index={index}
+                    b={b}
+                  />
                 </div>
                 <p className="text-gray-600">
                   Maximum Of ${b.maximum.toFixed(2)}

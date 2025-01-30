@@ -1,6 +1,7 @@
 import { useOutletContext } from "react-router-dom";
 import HeaderSec from "../components/HeaderSec";
 import Data from "../assets/data.json";
+import MenuDropDown from "../components/MenuDropDown";
 
 function Pots() {
   const { setModalType, setModal } = useOutletContext();
@@ -28,7 +29,7 @@ function Pots() {
                 ></p>
                 <p className="font-bold">{p.name}</p>
               </div>
-              <p>...</p>
+              <MenuDropDown />
             </div>
             <div className="flex flex-col gap-2">
               <div className="flex justify-between items-center">

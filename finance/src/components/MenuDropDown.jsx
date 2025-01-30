@@ -1,30 +1,72 @@
+import { useState, useRef, useEffect } from "react";
+
 // eslint-disable-next-line react/prop-types
-function MenuDropDown({
-  handleDeleteClick,
-  handleEditClick,
-  activeDropdown,
-  index,
-  budget,
-}) {
+function MenuDropDown({ setModal, setDeleteModal, setBudgetToEdit, index, b }) {
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setActiveDropdown(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const toggleDropdown = (e, index) => {
+    e.stopPropagation(); // Prevent event from bubbling up
+    setActiveDropdown(activeDropdown === index ? null : index);
+  };
+
+  const handleEditClick = (e, budget) => {
+    e.stopPropagation();
+    setActiveDropdown(null); // Close dropdown
+    setBudgetToEdit({
+      category: budget.category,
+      maximum: budget.maximum,
+      theme: budget.theme,
+    });
+    setModal(true); // Open modal
+  };
+
+  const handleDeleteClick = (e) => {
+    e.stopPropagation();
+    setActiveDropdown(null); // Close dropdown
+    setDeleteModal(true); // Open delete modal
+  };
+
   return (
-    <div
-      className={`absolute top-6 right-5 w-36 flex flex-col justify-center items-center bg-zinc-700/10 p-2 rounded-lg backdrop-blur-sm font-semibold transition-all duration-300 ${
-        activeDropdown === index ? "h-24 opacity-100" : "h-0 opacity-0"
-      }`}
-    >
+    <div ref={dropdownRef} className="relative">
       <p
-        onClick={(e) => handleEditClick(e, budget)}
-        className="cursor-pointer w-full text-center hover:bg-zinc-200 rounded py-1"
+        onClick={(e) => toggleDropdown(e, index)}
+        className="cursor-pointer px-2"
       >
-        Edit Budget
+        ...
       </p>
-      <hr className="w-full border-0.5 border-zinc-300 my-2" />
-      <p
-        onClick={handleDeleteClick}
-        className="cursor-pointer w-full text-center text-red-500 hover:bg-zinc-200 rounded py-1"
+
+      <div
+        className={`absolute top-6 right-5 w-36 flex flex-col justify-center items-center bg-zinc-700/10 p-2 rounded-lg backdrop-blur-sm font-semibold transition-all duration-300 ${
+          activeDropdown === index ? "h-24 opacity-100" : "h-0 opacity-0"
+        }`}
       >
-        Delete Budget
-      </p>
+        <p
+          onClick={(e) => handleEditClick(e, b)}
+          className="cursor-pointer w-full text-center hover:bg-zinc-200 rounded py-1"
+        >
+          Edit Budget
+        </p>
+        <hr className="w-full border-0.5 border-zinc-300 my-2" />
+        <p
+          onClick={handleDeleteClick}
+          className="cursor-pointer w-full text-center text-red-500 hover:bg-zinc-200 rounded py-1"
+        >
+          Delete Budget
+        </p>
+      </div>
     </div>
   );
 }
