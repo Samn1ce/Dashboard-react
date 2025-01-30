@@ -51,6 +51,12 @@ function Overview() {
   const endIndex = startIndex + show;
   const currentTransactions = sortedTransactions.slice(startIndex, endIndex);
 
+  const totalPots = Data.pots.reduce((sum, item) => sum + item.total, 0);
+
+  const showPots = 4;
+
+  const currentPots = Data.pots.slice(0, showPots);
+
   return (
     <div className="w-full">
       {/* TITLE */}
@@ -96,42 +102,24 @@ function Overview() {
                   <h3 className="text-xs text-gray-400 font-bold">
                     Total Saved
                   </h3>
-                  <h1 className="text-3xl font-semibold">$850</h1>
+                  <h1 className="text-3xl font-semibold">${totalPots}</h1>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <div className="flex items-center justify-start">
-                  <div className="w-1 h-10 border-green-500 border-2 rounded-lg mr-3"></div>
-                  <div>
-                    <h6 className="text-xs font-bold text-zinc-400">Savings</h6>
-                    <h4 className="text-base font-bold">$150</h4>
+                {currentPots.map((p, index) => (
+                  <div key={index} className="flex items-center justify-start">
+                    <div
+                      className="w-1 h-10 border-green-500 border-2 rounded-lg mr-3"
+                      style={{ borderColor: p.theme }}
+                    ></div>
+                    <div>
+                      <h6 className="text-xs font-bold text-zinc-400">
+                        {p.name}
+                      </h6>
+                      <h4 className="text-base font-bold">${p.total}</h4>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center justify-start">
-                  <div className="w-1 h-10 border-blue-500 border-2 rounded-lg mx-5"></div>
-                  <div>
-                    <h6 className="text-xs font-bold text-zinc-400">Gift</h6>
-                    <h4 className="text-base font-bold">$150</h4>
-                  </div>
-                </div>
-                <div className="flex items-center justify-start">
-                  <div className="w-1 h-10 border-red-500 border-2 rounded-lg mr-3"></div>
-                  <div>
-                    <h6 className="text-xs font-bold text-zinc-400">
-                      Concert Ticket
-                    </h6>
-                    <h4 className="text-base font-bold">$150</h4>
-                  </div>
-                </div>
-                <div className="flex items-center justify-start">
-                  <div className="w-1 h-10 border-green-300 border-2 rounded-lg mx-5"></div>
-                  <div>
-                    <h6 className="text-xs font-bold text-zinc-400">
-                      New Laptop
-                    </h6>
-                    <h4 className="text-base font-bold">$150</h4>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>

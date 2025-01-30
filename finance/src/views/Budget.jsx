@@ -3,12 +3,18 @@ import { useOutletContext } from "react-router-dom";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import Data from "../assets/data.json";
+import HeaderSec from "../components/HeaderSec";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function Budget() {
-  const { setmodal, setNewBudgetModal, setDeleteModal, setBudgetToEdit } =
-    useOutletContext();
+  const {
+    setModal,
+    setNewBudgetModal,
+    setDeleteModal,
+    setBudgetToEdit,
+    setModalType,
+  } = useOutletContext();
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownRef = useRef(null);
 
@@ -73,7 +79,7 @@ function Budget() {
       maximum: budget.maximum,
       theme: budget.theme,
     });
-    setmodal(true); // Open modal
+    setModal(true); // Open modal
     setNewBudgetModal(false); // Set edit mode
   };
 
@@ -85,17 +91,13 @@ function Budget() {
 
   return (
     <div className="w-full">
-      <div className="w-full flex justify-between items-center my-8">
-        <p className="text-3xl font-bold">Budget</p>
-        <button
-          onClick={() => {
-            setmodal(true), setNewBudgetModal(true);
-          }}
-          className="py-2 px-4 rounded-md bg-black text-white"
-        >
-          +Add New Budget
-        </button>
-      </div>
+      <HeaderSec
+        setModal={setModal}
+        setModalType={setModalType}
+        headerText="Budget"
+        buttonText="+Add New Budget"
+        modalFor="Budget"
+      />
       <div className="w-full flex gap-4">
         {/* Left side with doughnut chart remains the same */}
         <div className="w-1/2 bg-white h-full rounded-2xl p-8">

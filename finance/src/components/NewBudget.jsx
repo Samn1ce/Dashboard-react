@@ -5,10 +5,13 @@ import { useState, useEffect } from "react";
 
 function NewBudget({
   modal,
-  setmodal,
+  setModal,
   newBudgetModal,
   closeModal,
   budgetToEdit,
+  // newPots,
+  // setNewPots,
+  modalType,
 }) {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [maxSpend, setMaxSpend] = useState("");
@@ -37,13 +40,19 @@ function NewBudget({
       <div className="bg-white w-[560px] rounded-md py-5 px-8 flex flex-col gap-4">
         <div className="flex justify-between items-center">
           <p className="text-3xl font-bold">
-            {newBudgetModal ? "Add New Budget" : "Edit Budget"}
+            {modalType === "budget"
+              ? "Add New Budget"
+              : modalType === "pots"
+              ? "Add New Pot"
+              : "Edit Budget"}
           </p>
-          <IconCancel onClick={() => closeModal(false)} />
+          <IconCancel onClick={closeModal} />
         </div>
         <p className="text-zinc-600">
-          {newBudgetModal
+          {modalType === "budget"
             ? "Choose a category to set a spending budget. These categories can help you monitor spending."
+            : modalType === "pots"
+            ? "Create a pot to set savings targets. These can help keep you on track as you save for special purchases."
             : "As your budgets change, feel free to update your spending limits."}
         </p>
         <div className="w-full flex flex-col gap-4">
@@ -98,7 +107,7 @@ function NewBudget({
           <button
             onClick={() => {
               // Add your save/update logic here
-              setmodal(false);
+              setModal(false);
             }}
             className="bg-zinc-900 w-full p-3 rounded-md font-semibold text-zinc-200"
           >
@@ -112,10 +121,11 @@ function NewBudget({
 
 NewBudget.propTypes = {
   modal: PropTypes.bool,
-  setmodal: PropTypes.func,
+  setModal: PropTypes.func,
   newBudgetModal: PropTypes.bool,
   closeModal: PropTypes.func,
   budgetToEdit: PropTypes.func,
+  modalType: PropTypes.func,
 };
 
 export default NewBudget;

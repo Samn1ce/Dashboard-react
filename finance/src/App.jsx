@@ -9,26 +9,37 @@ import NewBudget from "./components/NewBudget";
 import DeleteBudget from "./components/DeleteBudget";
 
 function App() {
-  const [modal, setmodal] = useState(false);
-  const [newBudgetModal, setNewBudgetModal] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [modalType, setModalType] = useState(null); // "budget" or "pots"
+
+  // Budget Modal Rendering
+  // const [newBudgetModal, setNewBudgetModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   // In your parent component/route
   const [budgetToEdit, setBudgetToEdit] = useState(null);
   const closeModal = () => {
-    setmodal(false);
+    setModal(false);
     setBudgetToEdit(null);
+    setModalType(null);
   };
+
+  // Pots Modal Rendering
+  // const [newPots, setNewPots] = useState(false);
 
   return (
     <div className="w-full flex bg-gray-200">
       <DeleteBudget deleteModal={deleteModal} setDeleteModal={setDeleteModal} />
       <NewBudget
         modal={modal}
-        setmodal={setmodal}
-        newBudgetModal={newBudgetModal}
-        setNewBudgetModal={setNewBudgetModal}
+        setModal={setModal}
+        // newBudgetModal={newBudgetModal}
+        // setNewBudgetModal={setNewBudgetModal}
         budgetToEdit={budgetToEdit}
         closeModal={closeModal}
+        // newPots={newPots}
+        // setNewPots={setNewPots}
+        modalType={modalType}
+        setModalType={setModalType}
       />
       {/* side nav */}
       <div className="w-1/5 h-screen sticky top-0 z-10 bg-tintDark rounded-r-xl py-5">
@@ -89,11 +100,13 @@ function App() {
         <Outlet
           context={{
             modal,
-            setmodal,
-            newBudgetModal,
-            setNewBudgetModal,
+            setModal,
+            // newBudgetModal,
+            // setNewBudgetModal,
             setDeleteModal,
             setBudgetToEdit,
+            // setNewPots,
+            setModalType,
           }}
         />
       </div>
