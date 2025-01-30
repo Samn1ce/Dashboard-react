@@ -11,9 +11,8 @@ import DeleteBudget from "./components/DeleteBudget";
 function App() {
   const [modal, setModal] = useState(false);
   const [modalType, setModalType] = useState(null); // "budget" or "pots"
+  const [dropdownType, setDropdownType] = useState(null);
 
-  // Budget Modal Rendering
-  // const [newBudgetModal, setNewBudgetModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   // In your parent component/route
   const [budgetToEdit, setBudgetToEdit] = useState(null);
@@ -32,12 +31,8 @@ function App() {
       <NewBudget
         modal={modal}
         setModal={setModal}
-        // newBudgetModal={newBudgetModal}
-        // setNewBudgetModal={setNewBudgetModal}
         budgetToEdit={budgetToEdit}
         closeModal={closeModal}
-        // newPots={newPots}
-        // setNewPots={setNewPots}
         modalType={modalType}
         setModalType={setModalType}
       />
@@ -101,12 +96,11 @@ function App() {
           context={{
             modal,
             setModal,
-            // newBudgetModal,
-            // setNewBudgetModal,
             setDeleteModal,
             setBudgetToEdit,
-            // setNewPots,
             setModalType,
+            dropdownType,
+            setDropdownType,
           }}
         />
       </div>

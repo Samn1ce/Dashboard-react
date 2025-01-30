@@ -4,7 +4,7 @@ import Data from "../assets/data.json";
 import MenuDropDown from "../components/MenuDropDown";
 
 function Pots() {
-  const { setModalType, setModal } = useOutletContext();
+  const { setModalType, setModal, setDropdownType } = useOutletContext();
 
   return (
     <div className="w-full">
@@ -29,7 +29,7 @@ function Pots() {
                 ></p>
                 <p className="font-bold">{p.name}</p>
               </div>
-              <MenuDropDown />
+              <MenuDropDown setDropdownType={setDropdownType} />
             </div>
             <div className="flex flex-col gap-2">
               <div className="flex justify-between items-center">
