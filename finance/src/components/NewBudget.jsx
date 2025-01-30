@@ -125,7 +125,7 @@ NewBudget.propTypes = {
   newBudgetModal: PropTypes.bool,
   closeModal: PropTypes.func,
   budgetToEdit: PropTypes.func,
-  modalType: PropTypes.func,
+  modalType: PropTypes.string,
 };
 
 export default NewBudget;

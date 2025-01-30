@@ -32,7 +32,7 @@ HeaderSec.propTypes = {
   headerText: PropTypes.string,
   buttonText: PropTypes.string,
   setModalType: PropTypes.func,
-  modalFor: PropTypes.func,
+  modalFor: PropTypes.string,
 };
 
 export default HeaderSec;
