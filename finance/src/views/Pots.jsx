@@ -3,17 +3,16 @@ import HeaderSec from "../components/HeaderSec";
 import Data from "../assets/data.json";
 
 function Pots() {
-  const { modalFor, setModalType, setModal } = useOutletContext();
+  const { setModalType, setModal } = useOutletContext();
 
   return (
     <div className="w-full">
       <HeaderSec
         setModal={setModal}
+        setModalType={setModalType}
         headerText="Pots"
         buttonText="+Add New Pots"
-        // setNewPots={setNewPots}
         modalFor="Pots"
-        setModalType={setModalType}
       />
       <div className="grid grid-cols-2 gap-4">
         {Data.pots.map((p, index) => (
