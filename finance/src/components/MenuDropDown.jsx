@@ -1,7 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 
 // eslint-disable-next-line react/prop-types
-function MenuDropDown({ setModal, setDeleteModal, setBudgetToEdit, index, b }) {
+function MenuDropDown({
+  setModal,
+  setDeleteModal,
+  setBudgetToEdit,
+  index,
+  b,
+  setDropdownType,
+  dropdownType,
+}) {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownRef = useRef(null);
 
@@ -57,14 +65,14 @@ function MenuDropDown({ setModal, setDeleteModal, setBudgetToEdit, index, b }) {
           onClick={(e) => handleEditClick(e, b)}
           className="cursor-pointer w-full text-center hover:bg-zinc-200 rounded py-1"
         >
-          Edit Budget
+          {dropdownType === "pots" ? "Edit Pots" : "Edit Budget"}
         </p>
         <hr className="w-full border-0.5 border-zinc-300 my-2" />
         <p
           onClick={handleDeleteClick}
           className="cursor-pointer w-full text-center text-red-500 hover:bg-zinc-200 rounded py-1"
         >
-          Delete Budget
+          {dropdownType === "pots" ? "Delete Pots" : "Delete Budget"}
         </p>
       </div>
     </div>

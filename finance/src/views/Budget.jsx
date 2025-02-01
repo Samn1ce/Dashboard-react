@@ -8,8 +8,14 @@ import MenuDropDown from "../components/MenuDropDown";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function Budget() {
-  const { setModal, setDeleteModal, setBudgetToEdit, setModalType } =
-    useOutletContext();
+  const {
+    setModal,
+    setDeleteModal,
+    setBudgetToEdit,
+    setModalType,
+    setDropdownType,
+    dropdownType,
+  } = useOutletContext();
 
   // Rest of your existing setup code remains the same
   const doughnutData = {
@@ -119,6 +125,8 @@ function Budget() {
                     setBudgetToEdit={setBudgetToEdit}
                     index={index}
                     b={b}
+                    setDropdownType={setDropdownType}
+                    dropdownType={dropdownType}
                   />
                 </div>
                 <p className="text-gray-600">
