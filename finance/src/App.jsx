@@ -5,7 +5,7 @@ import IconTransaction from "./components/icon/IconTransaction";
 import IconBudget from "./components/icon/IconBudget";
 import IconPots from "./components/icon/IconPots";
 import IconRb from "./components/icon/IconRb";
-import editModal from "./components/editModal";
+import EditModal from "./components/EditModal";
 import DeleteBudget from "./components/DeleteBudget";
 import AddModal from "./components/AddModal";
 
@@ -35,9 +35,10 @@ function App() {
         setAddModalType={setAddModalType}
       />
       <DeleteBudget deleteModal={deleteModal} setDeleteModal={setDeleteModal} />
-      <editModal
+      <EditModal
         addEditModal={addEditModal}
         setAddEditModal={setAddEditModal}
+        budgetToEdit={budgetToEdit}
       />
       {/* side nav */}
       <div className="w-1/5 h-screen sticky top-0 z-10 bg-tintDark rounded-r-xl py-5">
@@ -102,6 +103,8 @@ function App() {
             setDeleteModal,
             setBudgetToEdit,
             setAddModalType,
+            editModalType,
+            setEditModalType,
             dropdownType,
             setDropdownType,
           }}

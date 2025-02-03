@@ -16,6 +16,7 @@ function Budget() {
     setaddModalType,
     setDropdownType,
     dropdownType,
+    setEditModalType,
   } = useOutletContext();
 
   // Rest of your existing setup code remains the same
@@ -56,7 +57,8 @@ function Budget() {
 
   useEffect(() => {
     setDropdownType("budgets");
-  }, [setDropdownType]);
+    setEditModalType("budgets");
+  }, [setDropdownType, setEditModalType]);
 
   return (
     <div className="w-full">

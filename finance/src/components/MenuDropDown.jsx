@@ -37,7 +37,7 @@ function MenuDropDown({
       maximum: budget.maximum,
       theme: budget.theme,
     });
-    setModal(true); // Open modal
+    setAddEditModal(true); // Open modal
   };
 
   const handleDeleteClick = (e) => {
@@ -79,7 +79,7 @@ function MenuDropDown({
 }
 
 MenuDropDown.propTypes = {
-  setModal: PropTypes.func,
+  setAddEditModal: PropTypes.func,
   setDeleteModal: PropTypes.func,
   setBudgetToEdit: PropTypes.func,
   index: PropTypes.any,

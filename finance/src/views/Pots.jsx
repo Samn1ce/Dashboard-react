@@ -5,12 +5,18 @@ import Data from "../assets/data.json";
 import MenuDropDown from "../components/MenuDropDown";
 
 function Pots() {
-  const { setaddModalType, setModal, setDropdownType, dropdownType } =
-    useOutletContext();
+  const {
+    setaddModalType,
+    setModal,
+    setDropdownType,
+    dropdownType,
+    setEditModalType,
+  } = useOutletContext();
 
   useEffect(() => {
     setDropdownType("pots");
-  }, [setDropdownType]);
+    setEditModalType("pots");
+  }, [setDropdownType, setEditModalType]);
 
   return (
     <div className="w-full">

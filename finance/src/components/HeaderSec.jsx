@@ -26,6 +26,7 @@ function HeaderSec({
 
 HeaderSec.propTypes = {
   setModal: PropTypes.func,
+  setAddModalType: PropTypes.func,
   headerText: PropTypes.string,
   buttonText: PropTypes.string,
   setaddModalType: PropTypes.func,
