@@ -1,13 +1,12 @@
 import { useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
 
-// eslint-disable-next-line react/prop-types
 function MenuDropDown({
   setModal,
   setDeleteModal,
   setBudgetToEdit,
   index,
   b,
-  setDropdownType,
   dropdownType,
 }) {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -78,5 +77,14 @@ function MenuDropDown({
     </div>
   );
 }
+
+MenuDropDown.propTypes = {
+  setModal: PropTypes.func,
+  setDeleteModal: PropTypes.func,
+  setBudgetToEdit: PropTypes.func,
+  index: PropTypes.any,
+  b: PropTypes.any,
+  dropdownType: PropTypes.string,
+};
 
 export default MenuDropDown;

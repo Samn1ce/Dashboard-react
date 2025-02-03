@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import HeaderSec from "../components/HeaderSec";
 import Data from "../assets/data.json";
@@ -6,6 +7,10 @@ import MenuDropDown from "../components/MenuDropDown";
 function Pots() {
   const { setModalType, setModal, setDropdownType, dropdownType } =
     useOutletContext();
+
+  useEffect(() => {
+    setDropdownType("pots");
+  }, [setDropdownType]);
 
   return (
     <div className="w-full">

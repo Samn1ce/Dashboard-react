@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
@@ -52,6 +53,10 @@ function Budget() {
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .slice(0, 3);
   };
+
+  useEffect(() => {
+    setDropdownType("budgets");
+  }, [setDropdownType]);
 
   return (
     <div className="w-full">
