@@ -19,6 +19,7 @@ function Pots() {
         setModalType={setModalType}
         headerText="Pots"
         buttonText="+Add New Pots"
+        buttonDisplay="block"
         modalFor="pots"
       />
       <div className="grid grid-cols-2 gap-4">

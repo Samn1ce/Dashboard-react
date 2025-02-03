@@ -4,7 +4,7 @@ import IconCancel from "./icon/IconCancel";
 function DeleteBudget({ deleteModal, setDeleteModal }) {
   return (
     <div
-      className={`absolute top-0 z-20 bg-black/70 w-full h-screen justify-center items-center ${
+      className={`fixed top-0 z-20 bg-black/70 w-full h-screen justify-center items-center ${
         deleteModal ? "flex" : "hidden"
       }`}
     >

@@ -65,6 +65,7 @@ function Budget() {
         setModalType={setModalType}
         headerText="Budget"
         buttonText="+Add New Budget"
+        buttonDisplay="block"
         modalFor="budget"
       />
       <div className="w-full flex gap-4">
