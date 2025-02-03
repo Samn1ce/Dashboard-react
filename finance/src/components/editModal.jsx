@@ -3,13 +3,14 @@ import IconCancel from "./icon/IconCancel";
 import Data from "../assets/data.json";
 import { useState, useEffect } from "react";
 
-function NewBudget({
-  modal,
+function editModal({
+  AddEditModal,
+  setAddEditModal,
   setModal,
   newBudgetModal,
   closeModal,
   budgetToEdit,
-  modalType,
+  addModalType,
 }) {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [maxSpend, setMaxSpend] = useState("");
@@ -32,33 +33,33 @@ function NewBudget({
   return (
     <div
       className={`fixed top-0 z-20 bg-black/70 w-full h-screen justify-center items-center ${
-        modal ? "flex" : "hidden"
+        addEditModal ? "flex" : "hidden"
       }`}
     >
       <div className="bg-white w-[560px] rounded-md py-5 px-8 flex flex-col gap-4">
         <div className="flex justify-between items-center">
           <p className="text-3xl font-bold">
-            {modalType === "budget"
+            {addModalType === "budget"
               ? "Add New Budget"
-              : modalType === "pots"
+              : addModalType === "pots"
               ? "Add New Pot"
               : "Edit Budget"}
           </p>
           <IconCancel onClick={closeModal} />
         </div>
         <p className="text-zinc-600">
-          {modalType === "budget"
+          {addModalType === "budget"
             ? "Choose a category to set a spending budget. These categories can help you monitor spending."
-            : modalType === "pots"
+            : addModalType === "pots"
             ? "Create a pot to set savings targets. These can help keep you on track as you save for special purchases."
             : "As your budgets change, feel free to update your spending limits."}
         </p>
         <div className="w-full flex flex-col gap-4">
           <div className="w-full">
             <p className="font-semibold text-zinc-500 text-sm">
-              {modalType === "pots" ? "Pot Name" : "Budget Category"}
+              {addModalType === "pots" ? "Pot Name" : "Budget Category"}
             </p>
-            {modalType === "pots" ? (
+            {addModalType === "pots" ? (
               <div className="w-full border border-black h-10 rounded-md py-1 px-5">
                 <input type="text" className="w-full h-full outline-none" />
               </div>
@@ -69,7 +70,7 @@ function NewBudget({
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
                 <option value="" disabled>
-                  {modalType === "budget" ? "Select a Category" : ""}
+                  {addModalType === "budget" ? "Select a Category" : ""}
                 </option>
                 {Data.budgets.map((b, index) => (
                   <option key={index} value={b.category}>
@@ -99,7 +100,7 @@ function NewBudget({
               onChange={(e) => setSelectedTheme(e.target.value)}
             >
               <option value="" disabled>
-                {modalType === "budget" || modalType === "pots"
+                {addModalType === "budget" || addModalType === "pots"
                   ? "Select a Theme"
                   : ""}
               </option>
@@ -117,9 +118,9 @@ function NewBudget({
             }}
             className="bg-zinc-900 w-full p-3 rounded-md font-semibold text-zinc-200"
           >
-            {modalType === "budget"
+            {addModalType === "budget"
               ? "Add Budget"
-              : modalType === "pots"
+              : addModalType === "pots"
               ? "Add Pots"
               : "Save Changes"}
           </button>
@@ -129,13 +130,13 @@ function NewBudget({
   );
 }
 
-NewBudget.propTypes = {
+editModal.propTypes = {
   modal: PropTypes.bool,
   setModal: PropTypes.func,
   newBudgetModal: PropTypes.bool,
   closeModal: PropTypes.func,
   budgetToEdit: PropTypes.func,
-  modalType: PropTypes.string,
+  addModalType: PropTypes.string,
 };
 
-export default NewBudget;
+export default editModal;

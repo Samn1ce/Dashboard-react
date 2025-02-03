@@ -5,12 +5,15 @@ import IconTransaction from "./components/icon/IconTransaction";
 import IconBudget from "./components/icon/IconBudget";
 import IconPots from "./components/icon/IconPots";
 import IconRb from "./components/icon/IconRb";
-import NewBudget from "./components/NewBudget";
+import editModal from "./components/editModal";
 import DeleteBudget from "./components/DeleteBudget";
+import AddModal from "./components/AddModal";
 
 function App() {
   const [modal, setModal] = useState(false);
-  const [modalType, setModalType] = useState(null); // "budget" or "pots"
+  const [addEditModal, setAddEditModal] = useState(false);
+  const [editModalType, setEditModalType] = useState(null);
+  const [addModalType, setAddModalType] = useState(null); // "budget" or "pots"
   const [dropdownType, setDropdownType] = useState(null);
 
   const [deleteModal, setDeleteModal] = useState(false);
@@ -19,22 +22,22 @@ function App() {
   const closeModal = () => {
     setModal(false);
     setBudgetToEdit(null);
-    setModalType(null);
+    setAddModalType(null);
   };
-
-  // Pots Modal Rendering
-  // const [newPots, setNewPots] = useState(false);
 
   return (
     <div className="w-full flex bg-gray-200">
-      <DeleteBudget deleteModal={deleteModal} setDeleteModal={setDeleteModal} />
-      <NewBudget
+      <AddModal
         modal={modal}
         setModal={setModal}
-        budgetToEdit={budgetToEdit}
         closeModal={closeModal}
-        modalType={modalType}
-        setModalType={setModalType}
+        addModalType={addModalType}
+        setAddModalType={setAddModalType}
+      />
+      <DeleteBudget deleteModal={deleteModal} setDeleteModal={setDeleteModal} />
+      <editModal
+        addEditModal={addEditModal}
+        setAddEditModal={setAddEditModal}
       />
       {/* side nav */}
       <div className="w-1/5 h-screen sticky top-0 z-10 bg-tintDark rounded-r-xl py-5">
@@ -95,10 +98,10 @@ function App() {
         <Outlet
           context={{
             modal,
-            setModal,
+            setAddEditModal,
             setDeleteModal,
             setBudgetToEdit,
-            setModalType,
+            setAddModalType,
             dropdownType,
             setDropdownType,
           }}

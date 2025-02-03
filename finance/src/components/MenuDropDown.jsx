@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 
 function MenuDropDown({
-  setModal,
+  setAddEditModal,
   setDeleteModal,
   setBudgetToEdit,
   index,

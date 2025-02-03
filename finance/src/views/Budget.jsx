@@ -13,7 +13,7 @@ function Budget() {
     setModal,
     setDeleteModal,
     setBudgetToEdit,
-    setModalType,
+    setaddModalType,
     setDropdownType,
     dropdownType,
   } = useOutletContext();
@@ -62,11 +62,11 @@ function Budget() {
     <div className="w-full">
       <HeaderSec
         setModal={setModal}
-        setModalType={setModalType}
+        setaddModalType={setaddModalType}
         headerText="Budget"
         buttonText="+Add New Budget"
         buttonDisplay="block"
-        modalFor="budget"
+        modalForAdd="budget"
       />
       <div className="w-full flex gap-4">
         {/* Left side with doughnut chart remains the same */}

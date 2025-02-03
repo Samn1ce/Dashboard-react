@@ -5,7 +5,7 @@ import Data from "../assets/data.json";
 import MenuDropDown from "../components/MenuDropDown";
 
 function Pots() {
-  const { setModalType, setModal, setDropdownType, dropdownType } =
+  const { setaddModalType, setModal, setDropdownType, dropdownType } =
     useOutletContext();
 
   useEffect(() => {
@@ -16,11 +16,11 @@ function Pots() {
     <div className="w-full">
       <HeaderSec
         setModal={setModal}
-        setModalType={setModalType}
+        setaddModalType={setaddModalType}
         headerText="Pots"
         buttonText="+Add New Pots"
         buttonDisplay="block"
-        modalFor="pots"
+        modalForAdd="pots"
       />
       <div className="grid grid-cols-2 gap-4">
         {Data.pots.map((p, index) => (

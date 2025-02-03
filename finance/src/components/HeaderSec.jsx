@@ -2,10 +2,10 @@ import PropTypes from "prop-types";
 
 function HeaderSec({
   setModal,
-  setModalType,
+  setAddModalType,
   headerText,
   buttonText,
-  modalFor,
+  modalForAdd,
   buttonDisplay,
 }) {
   return (
@@ -13,7 +13,7 @@ function HeaderSec({
       <p className="text-3xl font-bold">{headerText}</p>
       <button
         onClick={() => {
-          setModal(true), setModalType(modalFor);
+          setModal(true), setAddModalType(modalForAdd);
         }}
         className="py-2 px-4 rounded-md bg-black text-white"
         style={{ display: `${buttonDisplay}` }}
@@ -28,8 +28,8 @@ HeaderSec.propTypes = {
   setModal: PropTypes.func,
   headerText: PropTypes.string,
   buttonText: PropTypes.string,
-  setModalType: PropTypes.func,
-  modalFor: PropTypes.string,
+  setaddModalType: PropTypes.func,
+  modalForAdd: PropTypes.string,
   buttonDisplay: PropTypes.string,
 };
 
