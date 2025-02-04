@@ -79,12 +79,16 @@ function MenuDropDown({
 }
 
 MenuDropDown.propTypes = {
-  setAddEditModal: PropTypes.func,
-  setDeleteModal: PropTypes.func,
-  setBudgetToEdit: PropTypes.func,
-  index: PropTypes.any,
-  b: PropTypes.any,
-  dropdownType: PropTypes.string,
+  setAddEditModal: PropTypes.func.isRequired,
+  setDeleteModal: PropTypes.func.isRequired,
+  setBudgetToEdit: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
+  b: PropTypes.shape({
+    category: PropTypes.string.isRequired,
+    maximum: PropTypes.number.isRequired,
+    theme: PropTypes.string.isRequired,
+  }).isRequired,
+  dropdownType: PropTypes.oneOf(["pots", "budget"]),
 };
 
 export default MenuDropDown;

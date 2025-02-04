@@ -11,6 +11,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 function Budget() {
   const {
     setModal,
+    setAddEditModal,
     setDeleteModal,
     setBudgetToEdit,
     setaddModalType,
@@ -128,7 +129,7 @@ function Budget() {
                     <p className="text-2xl font-bold">{b.category}</p>
                   </div>
                   <MenuDropDown
-                    setModal={setModal}
+                    setAddEditModal={setAddEditModal}
                     setDeleteModal={setDeleteModal}
                     setBudgetToEdit={setBudgetToEdit}
                     index={index}

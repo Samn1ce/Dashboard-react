@@ -6,7 +6,10 @@ import MenuDropDown from "../components/MenuDropDown";
 
 function Pots() {
   const {
-    setaddModalType,
+    setBudgetToEdit,
+    setDeleteModal,
+    setAddModalType,
+    setAddEditModal,
     setModal,
     setDropdownType,
     dropdownType,
@@ -22,7 +25,7 @@ function Pots() {
     <div className="w-full">
       <HeaderSec
         setModal={setModal}
-        setaddModalType={setaddModalType}
+        setAddModalType={setAddModalType}
         headerText="Pots"
         buttonText="+Add New Pots"
         buttonDisplay="block"
@@ -43,6 +46,9 @@ function Pots() {
                 <p className="font-bold">{p.name}</p>
               </div>
               <MenuDropDown
+                setAddEditModal={setAddEditModal} // or whatever modal state setter you have
+                setDeleteModal={setDeleteModal}
+                setBudgetToEdit={setBudgetToEdit}
                 setDropdownType={setDropdownType}
                 dropdownType={dropdownType}
               />

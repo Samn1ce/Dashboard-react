@@ -99,6 +99,7 @@ function App() {
         <Outlet
           context={{
             modal,
+            setModal,
             setAddEditModal,
             setDeleteModal,
             setBudgetToEdit,
