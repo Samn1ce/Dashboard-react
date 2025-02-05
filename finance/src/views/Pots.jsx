@@ -53,6 +53,7 @@ function Pots() {
                 setDropdownType={setDropdownType}
                 dropdownType={dropdownType}
                 setPotsToEdit={setPotsToEdit}
+                b={null}
                 p={p}
                 index={index}
               />

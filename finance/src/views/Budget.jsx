@@ -134,6 +134,7 @@ function Budget() {
                     setBudgetToEdit={setBudgetToEdit}
                     index={index}
                     b={b}
+                    p={null}
                     setDropdownType={setDropdownType}
                     dropdownType={dropdownType}
                   />

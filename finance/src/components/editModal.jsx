@@ -10,20 +10,26 @@ function EditModal({
   closeModal,
   budgetToEdit,
   addModalType,
+  potsToEdit,
 }) {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [maxSpend, setMaxSpend] = useState("");
   const [selectedTheme, setSelectedTheme] = useState("");
+
+  const [selectedName, setSelectedName] = useState("");
+  const [selectedTarget, setSelectedTarget] = useState("");
 
   useEffect(() => {
     if (editModalType === "budgets" && budgetToEdit) {
       setSelectedCategory(budgetToEdit.category);
       setMaxSpend(budgetToEdit.maximum);
       setSelectedTheme(budgetToEdit.theme);
-    } else {
-      ("pots");
+    } else if (editModalType === "pots" && potsToEdit) {
+      setSelectedName(potsToEdit.name);
+      setSelectedTarget(potsToEdit.target);
+      setSelectedTheme(potsToEdit.theme);
     }
-  }, [editModalType, budgetToEdit]);
+  }, [editModalType, budgetToEdit, potsToEdit]);
 
   return (
     <div
@@ -50,7 +56,11 @@ function EditModal({
             </p>
             {editModalType === "pots" ? (
               <div className="w-full border border-black h-10 rounded-md py-1 px-5">
-                <input type="text" className="w-full h-full outline-none" />
+                <input
+                  type="text"
+                  value={selectedName}
+                  className="w-full h-full outline-none"
+                />
               </div>
             ) : (
               <select
@@ -59,7 +69,7 @@ function EditModal({
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
                 <option value="" disabled>
-                  {addModalType === "budget" ? "Select a Category" : ""}
+                  {editModalType === "budget" ? "Select a Category" : ""}
                 </option>
                 {Data.budgets.map((b, index) => (
                   <option key={index} value={b.category}>
@@ -70,13 +80,15 @@ function EditModal({
             )}
           </div>
           <div className="w-full">
-            <p className="font-semibold text-zinc-500 text-sm">Maximum Spend</p>
+            <p className="font-semibold text-zinc-500 text-sm">
+              {editModalType === "budget" ? "Maximum Spend" : "Target"}
+            </p>
             <div className="w-full border border-black h-10 rounded-md py-1 px-5 flex">
               <input type="text" disabled placeholder="$" className="w-3" />
               <input
                 type="number"
                 className="text-xl flex-grow outline-none px-2"
-                value={maxSpend}
+                value={(maxSpend, selectedTarget)}
                 onChange={(e) => setMaxSpend(e.target.value)}
               />
             </div>
@@ -122,6 +134,7 @@ EditModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
   budgetToEdit: PropTypes.object,
   addModalType: PropTypes.string,
+  potsToEdit: PropTypes.object,
 };
 
 export default EditModal;
