@@ -8,13 +8,16 @@ import IconRb from "./components/icon/IconRb";
 import EditModal from "./components/EditModal";
 import DeleteBudget from "./components/DeleteBudget";
 import AddModal from "./components/AddModal";
+import AddWithdraw from "./components/AddWithdraw";
 
 function App() {
   const [modal, setModal] = useState(false);
   const [addEditModal, setAddEditModal] = useState(false);
+  const [addWithdrawModal, setAddWithdrawModal] = useState(false);
   const [editModalType, setEditModalType] = useState(null);
-  const [addModalType, setAddModalType] = useState(null); // "budget" or "pots"
+  const [addModalType, setAddModalType] = useState(null);
   const [dropdownType, setDropdownType] = useState(null);
+  const [buttonFor, setButtonFor] = useState(null);
 
   const [deleteModal, setDeleteModal] = useState(false);
   // In your parent component/route
@@ -25,6 +28,7 @@ function App() {
     setBudgetToEdit(null);
     setAddModalType(null);
     setAddEditModal(false);
+    setAddWithdrawModal(false);
   };
 
   return (
@@ -44,6 +48,12 @@ function App() {
         budgetToEdit={budgetToEdit}
         potsToEdit={potsToEdit}
         closeModal={closeModal}
+      />
+      <AddWithdraw
+        addWithdrawModal={addWithdrawModal}
+        setAddWithdrawModal={setAddWithdrawModal}
+        closeModal={closeModal}
+        buttonFor={buttonFor}
       />
       {/* side nav */}
       <div className="w-1/5 h-screen sticky top-0 z-10 bg-tintDark rounded-r-xl py-5">
@@ -114,6 +124,8 @@ function App() {
             setEditModalType,
             dropdownType,
             setDropdownType,
+            setAddWithdrawModal,
+            setButtonFor,
           }}
         />
       </div>

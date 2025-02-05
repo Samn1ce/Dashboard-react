@@ -15,6 +15,8 @@ function Pots() {
     dropdownType,
     setEditModalType,
     setPotsToEdit,
+    setAddWithdrawModal,
+    setButtonFor,
   } = useOutletContext();
 
   useEffect(() => {
@@ -81,10 +83,20 @@ function Pots() {
               </div>
             </div>
             <div className="flex gap-4">
-              <button className="w-60 bg-zinc-200 rounded-md py-3 font-semibold">
+              <button
+                onClick={() => {
+                  setAddWithdrawModal(true), setButtonFor("add");
+                }}
+                className="w-60 bg-zinc-200 rounded-md py-3 font-semibold"
+              >
                 +Add Money
               </button>
-              <button className="w-60 bg-zinc-200 rounded-md py-3 font-semibold">
+              <button
+                onClick={() => {
+                  setAddWithdrawModal(true), setButtonFor("withdraw");
+                }}
+                className="w-60 bg-zinc-200 rounded-md py-3 font-semibold"
+              >
                 Withdraw
               </button>
             </div>
