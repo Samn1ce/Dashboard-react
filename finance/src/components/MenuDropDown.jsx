@@ -40,7 +40,7 @@ function MenuDropDown({
         maximum: budget.maximum,
         theme: budget.theme,
       });
-    } else {
+    } else if (dropdownType === "pots") {
       setPotsToEdit({
         name: pots.name,
         target: pots.target,
