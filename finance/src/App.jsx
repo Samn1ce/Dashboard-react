@@ -18,6 +18,7 @@ function App() {
   const [addModalType, setAddModalType] = useState(null);
   const [dropdownType, setDropdownType] = useState(null);
   const [buttonFor, setButtonFor] = useState(null);
+  const [selectedPots, setSelectedPots] = useState(null);
 
   const [deleteModal, setDeleteModal] = useState(false);
   // In your parent component/route
@@ -54,6 +55,8 @@ function App() {
         setAddWithdrawModal={setAddWithdrawModal}
         closeModal={closeModal}
         buttonFor={buttonFor}
+        selectedPots={selectedPots}
+        setSelectedPots={setSelectedPots}
       />
       {/* side nav */}
       <div className="w-1/5 h-screen sticky top-0 z-10 bg-tintDark rounded-r-xl py-5">
@@ -126,6 +129,7 @@ function App() {
             setDropdownType,
             setAddWithdrawModal,
             setButtonFor,
+            setSelectedPots,
           }}
         />
       </div>

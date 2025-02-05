@@ -1,12 +1,36 @@
 import PropTypes from "prop-types";
 import IconCancel from "./icon/IconCancel";
+import { useState } from "react";
 
 function AddWithdraw({
   addWithdrawModal,
   setAddWithdrawModal,
   closeModal,
   buttonFor,
+  selectedPots,
 }) {
+  const [inputValue, setInputValue] = useState(""); // Fix: Destructure useState properly
+  const [newTotal, setNewTotal] = useState(0); // Add state for new total
+
+  if (!selectedPots) return null;
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+
+    // Calculate new total based on input
+    if (value === "") {
+      setNewTotal(selectedPots.total);
+    } else {
+      const numericValue = parseFloat(value) || 0;
+      if (buttonFor === "add") {
+        setNewTotal(selectedPots.total + numericValue);
+      } else {
+        setNewTotal(selectedPots.total - numericValue);
+      }
+    }
+  };
+
   return (
     <div
       className={`fixed top-0 z-20 bg-black/70 w-full h-screen justify-center items-center ${
@@ -17,8 +41,8 @@ function AddWithdraw({
         <div className="flex justify-between items-center">
           <p className="text-3xl font-bold">
             {buttonFor === "add"
-              ? "Add to 'Savings'"
-              : "Withdraw from 'Savings'"}
+              ? `Add to '${selectedPots.name}'`
+              : `Withdraw from '${selectedPots.name}'`}
           </p>
           <IconCancel onClick={closeModal} />
         </div>
@@ -30,18 +54,25 @@ function AddWithdraw({
         <div className="flex flex-col gap-2">
           <div className="flex justify-between items-center">
             <p className="text-sm text-zinc-500 font-semibold">New Amount</p>
-            <p className="text-3xl text-black font-bold">$559.00</p>
+            <p className="text-3xl text-black font-bold">
+              ${newTotal.toFixed(2)}
+            </p>
           </div>
-          <div
-            className="w-full h-2 rounded-full overflow-hidden
-           bg-zinc-100"
-          >
-            <div className="w-1/2 h-full bg-black"></div>
+          <div className="w-full h-2 rounded-full overflow-hidden bg-zinc-100">
+            <div
+              className="h-full"
+              style={{
+                width: `${(selectedPots.total / selectedPots.target) * 100}%`,
+                backgroundColor: selectedPots.theme,
+              }}
+            ></div>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-sm text-green-600 font-semibold">27.95%</p>
+            <p className="text-sm text-green-600 font-semibold">
+              {((selectedPots.total / selectedPots.target) * 100).toFixed(2)}%
+            </p>
             <p className="font-semibold text-zinc-500 text-sm">
-              Target of $2000
+              Target of ${selectedPots.target.toLocaleString()}
             </p>
           </div>
         </div>
@@ -53,6 +84,8 @@ function AddWithdraw({
             <input type="text" disabled placeholder="$" className="w-3" />
             <input
               type="text"
+              value={inputValue}
+              onChange={handleInputChange}
               className="w-full h-full outline-none px-2 font-semibold"
             />
           </div>
@@ -75,8 +108,15 @@ function AddWithdraw({
 AddWithdraw.propTypes = {
   addWithdrawModal: PropTypes.bool.isRequired,
   setAddWithdrawModal: PropTypes.func.isRequired,
-  closeModal: PropTypes.bool.isRequired,
-  buttonFor: PropTypes.oneOf(["add", "withdraw"]),
+  closeModal: PropTypes.func.isRequired,
+  buttonFor: PropTypes.oneOf(["add", "withdraw"]).isRequired,
+  selectedPots: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    target: PropTypes.number.isRequired,
+    total: PropTypes.number.isRequired,
+    theme: PropTypes.string.isRequired,
+  }),
+  setSelectedPots: PropTypes.func.isRequired,
 };
 
 export default AddWithdraw;

@@ -17,6 +17,7 @@ function Pots() {
     setPotsToEdit,
     setAddWithdrawModal,
     setButtonFor,
+    setSelectedPots,
   } = useOutletContext();
 
   useEffect(() => {
@@ -85,7 +86,9 @@ function Pots() {
             <div className="flex gap-4">
               <button
                 onClick={() => {
-                  setAddWithdrawModal(true), setButtonFor("add");
+                  setAddWithdrawModal(true),
+                    setButtonFor("add"),
+                    setSelectedPots(p);
                 }}
                 className="w-60 bg-zinc-200 rounded-md py-3 font-semibold"
               >
@@ -93,7 +96,9 @@ function Pots() {
               </button>
               <button
                 onClick={() => {
-                  setAddWithdrawModal(true), setButtonFor("withdraw");
+                  setAddWithdrawModal(true),
+                    setButtonFor("withdraw"),
+                    setSelectedPots(p);
                 }}
                 className="w-60 bg-zinc-200 rounded-md py-3 font-semibold"
               >
