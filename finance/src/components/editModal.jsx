@@ -45,7 +45,7 @@ function EditModal({
           <IconCancel onClick={closeModal} />
         </div>
         <p className="text-zinc-600">
-          {editModalType === "budget"
+          {editModalType === "budgets"
             ? "As your budgets change, feel free to update your spending limits."
             : "If your saving targets change, feel free to update your pots"}
         </p>
@@ -70,7 +70,7 @@ function EditModal({
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
                 <option value="" disabled>
-                  {editModalType === "budget" ? "Select a Category" : ""}
+                  {editModalType === "budgets" ? "Select a Category" : ""}
                 </option>
                 {Data.budgets.map((b, index) => (
                   <option key={index} value={b.category}>
@@ -82,16 +82,16 @@ function EditModal({
           </div>
           <div className="w-full">
             <p className="font-semibold text-zinc-500 text-sm">
-              {editModalType === "budget" ? "Maximum Spend" : "Target"}
+              {editModalType === "budgets" ? "Maximum Spend" : "Target"}
             </p>
             <div className="w-full border border-black h-10 rounded-md py-1 px-5 flex">
               <input type="text" disabled placeholder="$" className="w-3" />
               <input
                 type="number"
                 className="text-xl flex-grow outline-none px-2"
-                value={editModalType === "budget" ? maxSpend : selectedTarget}
+                value={editModalType === "budgets" ? maxSpend : selectedTarget}
                 onChange={(e) =>
-                  editModalType === "budget"
+                  editModalType === "budgets"
                     ? setMaxSpend(e.target.value)
                     : setSelectedTarget(e.target.value)
                 }
@@ -106,7 +106,7 @@ function EditModal({
               onChange={(e) => setSelectedTheme(e.target.value)}
             >
               <option value="" disabled>
-                {addModalType === "budget" || addModalType === "pots"
+                {editModalType === "budgets" || addModalType === "pots"
                   ? "Select a Theme"
                   : ""}
               </option>

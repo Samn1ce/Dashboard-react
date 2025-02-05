@@ -34,7 +34,7 @@ function MenuDropDown({
   const handleEditClick = (e, budget, pots) => {
     e.stopPropagation();
     setActiveDropdown(null); // Close dropdown
-    if (dropdownType === "budget") {
+    if (dropdownType === "budgets") {
       setBudgetToEdit({
         category: budget.category,
         maximum: budget.maximum,
@@ -91,20 +91,20 @@ function MenuDropDown({
 MenuDropDown.propTypes = {
   setAddEditModal: PropTypes.func.isRequired,
   setDeleteModal: PropTypes.func.isRequired,
-  setBudgetToEdit: PropTypes.func.isRequired,
-  setPotsToEdit: PropTypes.func.isRequired,
+  setBudgetToEdit: PropTypes.func,
+  setPotsToEdit: PropTypes.func,
   index: PropTypes.number.isRequired,
   b: PropTypes.shape({
     category: PropTypes.string.isRequired,
     maximum: PropTypes.number.isRequired,
     theme: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
   p: PropTypes.shape({
     name: PropTypes.string.isRequired,
     target: PropTypes.number.isRequired,
     theme: PropTypes.string.isRequired,
   }),
-  dropdownType: PropTypes.oneOf(["pots", "budget"]),
+  dropdownType: PropTypes.oneOf(["pots", "budgets"]),
 };
 
 export default MenuDropDown;
