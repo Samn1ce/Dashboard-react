@@ -5,8 +5,10 @@ function MenuDropDown({
   setAddEditModal,
   setDeleteModal,
   setBudgetToEdit,
+  setPotsToEdit,
   index,
   b,
+  p,
   dropdownType,
 }) {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -29,14 +31,22 @@ function MenuDropDown({
     setActiveDropdown(activeDropdown === index ? null : index);
   };
 
-  const handleEditClick = (e, budget) => {
+  const handleEditClick = (e, budget, pots) => {
     e.stopPropagation();
     setActiveDropdown(null); // Close dropdown
-    setBudgetToEdit({
-      category: budget.category,
-      maximum: budget.maximum,
-      theme: budget.theme,
-    });
+    if (dropdownType === "budget") {
+      setBudgetToEdit({
+        category: budget.category,
+        maximum: budget.maximum,
+        theme: budget.theme,
+      });
+    } else {
+      setPotsToEdit({
+        name: pots.name,
+        target: pots.target,
+        theme: pots.theme,
+      });
+    }
     setAddEditModal(true); // Open modal
   };
 
@@ -61,7 +71,7 @@ function MenuDropDown({
         }`}
       >
         <p
-          onClick={(e) => handleEditClick(e, b)}
+          onClick={(e) => handleEditClick(e, b, p)}
           className="cursor-pointer w-full text-center hover:bg-zinc-200 rounded py-1"
         >
           {dropdownType === "pots" ? "Edit Pots" : "Edit Budget"}
@@ -82,12 +92,18 @@ MenuDropDown.propTypes = {
   setAddEditModal: PropTypes.func.isRequired,
   setDeleteModal: PropTypes.func.isRequired,
   setBudgetToEdit: PropTypes.func.isRequired,
+  setPotsToEdit: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   b: PropTypes.shape({
     category: PropTypes.string.isRequired,
     maximum: PropTypes.number.isRequired,
     theme: PropTypes.string.isRequired,
   }).isRequired,
+  p: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    target: PropTypes.number.isRequired,
+    theme: PropTypes.string.isRequired,
+  }),
   dropdownType: PropTypes.oneOf(["pots", "budget"]),
 };
 

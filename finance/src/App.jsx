@@ -19,10 +19,12 @@ function App() {
   const [deleteModal, setDeleteModal] = useState(false);
   // In your parent component/route
   const [budgetToEdit, setBudgetToEdit] = useState(null);
+  const [potsToEdit, setPotsToEdit] = useState(null);
   const closeModal = () => {
     setModal(false);
     setBudgetToEdit(null);
     setAddModalType(null);
+    setAddEditModal(false);
   };
 
   return (
@@ -38,7 +40,10 @@ function App() {
       <EditModal
         addEditModal={addEditModal}
         setAddEditModal={setAddEditModal}
+        editModalType={editModalType}
         budgetToEdit={budgetToEdit}
+        potsToEdit={potsToEdit}
+        closeModal={closeModal}
       />
       {/* side nav */}
       <div className="w-1/5 h-screen sticky top-0 z-10 bg-tintDark rounded-r-xl py-5">
@@ -103,6 +108,7 @@ function App() {
             setAddEditModal,
             setDeleteModal,
             setBudgetToEdit,
+            setPotsToEdit,
             setAddModalType,
             editModalType,
             setEditModalType,

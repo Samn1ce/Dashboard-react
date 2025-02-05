@@ -7,8 +7,6 @@ function EditModal({
   addEditModal,
   setAddEditModal,
   editModalType,
-  setModal,
-  newBudgetModal,
   closeModal,
   budgetToEdit,
   addModalType,
@@ -17,19 +15,15 @@ function EditModal({
   const [maxSpend, setMaxSpend] = useState("");
   const [selectedTheme, setSelectedTheme] = useState("");
 
-  // Set the form values when editing
   useEffect(() => {
-    if (!newBudgetModal && budgetToEdit) {
+    if (editModalType === "budgets" && budgetToEdit) {
       setSelectedCategory(budgetToEdit.category);
       setMaxSpend(budgetToEdit.maximum);
       setSelectedTheme(budgetToEdit.theme);
     } else {
-      // Reset form when adding new budget
-      setSelectedCategory("");
-      setMaxSpend("");
-      setSelectedTheme("");
+      ("pots");
     }
-  }, [newBudgetModal, budgetToEdit, addEditModal]);
+  }, [editModalType, budgetToEdit]);
 
   return (
     <div
@@ -122,10 +116,11 @@ function EditModal({
 }
 
 EditModal.propTypes = {
-  setModal: PropTypes.func,
-  newBudgetModal: PropTypes.bool,
-  closeModal: PropTypes.func,
-  budgetToEdit: PropTypes.func,
+  addEditModal: PropTypes.bool,
+  setAddEditModal: PropTypes.func,
+  editModalType: PropTypes.string,
+  closeModal: PropTypes.func.isRequired,
+  budgetToEdit: PropTypes.object,
   addModalType: PropTypes.string,
 };
 

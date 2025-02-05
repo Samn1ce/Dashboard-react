@@ -14,6 +14,7 @@ function Pots() {
     setDropdownType,
     dropdownType,
     setEditModalType,
+    setPotsToEdit,
   } = useOutletContext();
 
   useEffect(() => {
@@ -51,6 +52,9 @@ function Pots() {
                 setBudgetToEdit={setBudgetToEdit}
                 setDropdownType={setDropdownType}
                 dropdownType={dropdownType}
+                setPotsToEdit={setPotsToEdit}
+                p={p}
+                index={index}
               />
             </div>
             <div className="flex flex-col gap-2">
