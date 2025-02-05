@@ -59,6 +59,7 @@ function EditModal({
                 <input
                   type="text"
                   value={selectedName}
+                  onChange={(e) => setSelectedName(e.target.value)}
                   className="w-full h-full outline-none"
                 />
               </div>
@@ -88,8 +89,12 @@ function EditModal({
               <input
                 type="number"
                 className="text-xl flex-grow outline-none px-2"
-                value={(maxSpend, selectedTarget)}
-                onChange={(e) => setMaxSpend(e.target.value)}
+                value={editModalType === "budget" ? maxSpend : selectedTarget}
+                onChange={(e) =>
+                  editModalType === "budget"
+                    ? setMaxSpend(e.target.value)
+                    : setSelectedTarget(e.target.value)
+                }
               />
             </div>
           </div>
