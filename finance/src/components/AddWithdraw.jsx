@@ -1,6 +1,6 @@
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import IconCancel from "./icon/IconCancel";
-import { useState } from "react";
 
 function AddWithdraw({
   addWithdrawModal,
@@ -11,6 +11,13 @@ function AddWithdraw({
 }) {
   const [inputValue, setInputValue] = useState(""); // Fix: Destructure useState properly
   const [newTotal, setNewTotal] = useState(0); // Add state for new total
+
+  useEffect(() => {
+    if (selectedPots) {
+      setNewTotal(selectedPots.total || 0);
+      setInputValue("");
+    }
+  }, [selectedPots]);
 
   if (!selectedPots) return null;
 
@@ -23,11 +30,11 @@ function AddWithdraw({
       setNewTotal(selectedPots.total);
     } else {
       const numericValue = parseFloat(value) || 0;
-      if (buttonFor === "add") {
-        setNewTotal(selectedPots.total + numericValue);
-      } else {
-        setNewTotal(selectedPots.total - numericValue);
-      }
+      const updatedTotal =
+        buttonFor === "add"
+          ? selectedPots.total + numericValue
+          : Math.max(selectedPots.total - numericValue, 0);
+      setNewTotal(updatedTotal);
     }
   };
 
@@ -83,7 +90,7 @@ function AddWithdraw({
           <div className="w-full border border-black h-10 rounded-md py-1 px-5 flex">
             <input type="text" disabled placeholder="$" className="w-3" />
             <input
-              type="text"
+              type="number"
               value={inputValue}
               onChange={handleInputChange}
               className="w-full h-full outline-none px-2 font-semibold"
@@ -109,11 +116,11 @@ AddWithdraw.propTypes = {
   addWithdrawModal: PropTypes.bool.isRequired,
   setAddWithdrawModal: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
-  buttonFor: PropTypes.oneOf(["add", "withdraw"]).isRequired,
+  buttonFor: PropTypes.oneOf(["add", "withdraw"]),
   selectedPots: PropTypes.shape({
     name: PropTypes.string.isRequired,
     target: PropTypes.number.isRequired,
-    total: PropTypes.number.isRequired,
+    total: PropTypes.number,
     theme: PropTypes.string.isRequired,
   }),
   setSelectedPots: PropTypes.func.isRequired,
