@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Data from "../assets/data.json";
 
 function Transactions() {
@@ -7,6 +7,46 @@ function Transactions() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const transactionsPerPage = 10;
+
+  // 1. Add mobile detection state
+  const [isMobile, setIsMobile] = useState(false);
+
+  // 2. Add resize listener
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // 3. Create dynamic page number generator
+  const getPagesToShow = () => {
+    if (!isMobile) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    const pages = [];
+
+    // Add previous page if exists
+    if (currentPage > 1) {
+      pages.push(currentPage - 1);
+    }
+
+    // Always add current page
+    pages.push(currentPage);
+
+    // Add ellipsis and last page if needed
+    if (currentPage < totalPages) {
+      if (currentPage + 1 < totalPages) {
+        pages.push("...");
+      }
+      pages.push(totalPages);
+    }
+
+    return pages;
+  };
 
   // Filter and sort the transactions
   const filteredAndSortedTransactions = useMemo(() => {
@@ -64,10 +104,10 @@ function Transactions() {
   return (
     <div>
       <h1 className="text-3xl font-bold my-8">Transactions</h1>
-      <div className="bg-white w-full rounded-md p-10">
+      <div className="bg-white w-full rounded-md p-3 md:p-10">
         {/* Search & Dropdowns */}
         <div className="w-full flex justify-between mb-10">
-          <div className="w-80 h-10 border border-black rounded-lg p-2">
+          <div className="lg:w-80 h-10 border border-black rounded-lg p-2">
             <input
               type="text"
               placeholder="Search Transactions"
@@ -77,8 +117,8 @@ function Transactions() {
             />
           </div>
           <div className="flex gap-8">
-            <div className="flex justify-center items-center gap-2">
-              <p>Sort by</p>
+            <div className="hidden md:flex justify-center items-center gap-2">
+              <p className="text-xs lg:text-base">Sort by</p>
               <select
                 className="w-28 h-10 border border-black rounded-md"
                 value={sortBy}
@@ -92,8 +132,8 @@ function Transactions() {
                 <option value="lowest">Lowest</option>
               </select>
             </div>
-            <div className="flex justify-center items-center gap-2">
-              <p>Category</p>
+            <div className="hidden md:flex justify-center items-center gap-2">
+              <p className="text-xs lg:text-base">Category</p>
               <select
                 className="w-40 h-10 border border-black rounded-md px-2"
                 value={category}
@@ -111,9 +151,9 @@ function Transactions() {
         </div>
         {/* Transactions */}
         <div className="w-full">
-          <div className="w-full grid grid-cols-3">
+          <div className="w-full grid grid-cols-2 md:grid-cols-[7fr_5fr_4fr] lg:grid-cols-3">
             <p className="text-sm font-semibold">Receipt/Sender</p>
-            <div className="flex justify-between text-zinc-500 text-sm">
+            <div className="hidden md:flex justify-between text-zinc-500 text-sm">
               <p>Category</p>
               <p>Transaction Date</p>
             </div>
@@ -132,23 +172,31 @@ function Transactions() {
 
               return (
                 <div key={index} className="w-full">
-                  <div className="w-full grid grid-cols-3">
+                  <div className="w-full grid grid-cols-2 md:grid-cols-[7fr_5fr_4fr] lg:grid-cols-3">
                     <div className="flex">
                       <img src="" alt="" />
-                      <p className="font-bold">{t.name}</p>
+                      <div>
+                        <p className="font-bold text-sm">{t.name}</p>
+                        <p className="text-xs md:hidden">{t.category}</p>
+                      </div>
                     </div>
-                    <div className="flex justify-between text-zinc-500">
+                    <div className="hidden md:flex justify-between text-zinc-500">
                       <p>{t.category}</p>
                       <p>{formattedDate}</p>
                     </div>
-                    <p
-                      className={`font-bold text-lg justify-self-end ${
-                        t.amount >= 0 ? "text-green-500" : "text-zinc-800"
-                      }`}
-                    >
-                      {t.amount >= 0 ? "+" : ""}
-                      {t.amount.toFixed(2)}
-                    </p>
+                    <div className="justify-self-end">
+                      <p
+                        className={`font-bold text-lg justify-self-end ${
+                          t.amount >= 0 ? "text-green-500" : "text-zinc-800"
+                        }`}
+                      >
+                        {t.amount >= 0 ? "+" : ""}
+                        {t.amount.toFixed(2)}
+                      </p>
+                      <p className="text-xs justify-self-end">
+                        {formattedDate}
+                      </p>
+                    </div>
                   </div>
                   <hr className="my-5" />
                 </div>
@@ -164,17 +212,23 @@ function Transactions() {
               Prev
             </button>
             <div className="flex gap-4">
-              {[...Array(totalPages)].map((_, index) => (
-                <button
-                  key={index + 1}
-                  onClick={() => handlePageChange(index + 1)}
-                  className={`px-4 py-2 border rounded-md ${
-                    currentPage === index + 1 ? "bg-black text-white" : ""
-                  }`}
-                >
-                  {index + 1}
-                </button>
-              ))}
+              {getPagesToShow().map((page, index) =>
+                typeof page === "number" ? (
+                  <button
+                    key={page}
+                    onClick={() => handlePageChange(page)}
+                    className={`px-4 py-2 border rounded-md ${
+                      currentPage === page ? "bg-black text-white" : ""
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ) : (
+                  <span key={`ellipsis-${index}`} className="px-2">
+                    ...
+                  </span>
+                )
+              )}
             </div>
 
             <button

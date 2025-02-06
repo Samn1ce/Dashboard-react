@@ -71,10 +71,10 @@ function Budget() {
         buttonDisplay="block"
         modalForAdd="budget"
       />
-      <div className="w-full flex gap-4">
+      <div className="w-full flex flex-col lg:flex-row gap-4">
         {/* Left side with doughnut chart remains the same */}
-        <div className="w-1/2 bg-white h-full rounded-2xl p-8">
-          <div className="w-full flex justify-center items-center mb-8">
+        <div className="lg:w-1/2 flex flex-col justify-center lg:justify-normal items-center lg:items-start md:flex-row lg:flex-col bg-white h-full rounded-2xl p-8 gap-8 lg:gap-0">
+          <div className="lg:w-full flex justify-center items-center lg:mb-8">
             <div className="w-60 h-60 relative">
               <Doughnut data={doughnutData} options={doughnutOptions} />
               <div className="absolute transform top-1/2 -translate-y-1/2 -translate-x-1/2 left-1/2 w-44 h-44 rounded-full bg-zinc-200/25 flex justify-center items-center">
@@ -87,7 +87,7 @@ function Budget() {
               </div>
             </div>
           </div>
-          <div>
+          <div className="w-full">
             <p className="text-black text-2xl font-bold mb-5">
               Spending Summary
             </p>
@@ -99,10 +99,10 @@ function Budget() {
                       className="w-1 h-6 rounded-lg"
                       style={{ backgroundColor: b.theme }}
                     ></p>
-                    <p className="text-xl">{b.category}</p>
+                    <p className="text-sm md:text-xl">{b.category}</p>
                   </div>
                   <div>
-                    <span className="font-bold text-lg">
+                    <span className="font-bold text-sm md:text-lg">
                       ${b.spent.toFixed(2)}{" "}
                     </span>
                     Of
@@ -116,7 +116,7 @@ function Budget() {
         </div>
 
         {/* Right side with budget cards */}
-        <div className="w-1/2">
+        <div className="lg:w-1/2">
           {Data.budgets.map((b, index) => (
             <div key={index} className="bg-white w-full rounded-md p-8 mb-5">
               <div className="flex flex-col gap-4 mb-4">

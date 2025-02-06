@@ -35,7 +35,7 @@ function Pots() {
         buttonDisplay="block"
         modalForAdd="pots"
       />
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {Data.pots.map((p, index) => (
           <div
             key={index}
@@ -83,14 +83,14 @@ function Pots() {
                 </p>
               </div>
             </div>
-            <div className="flex gap-4">
+            <div className="flex gap-4 w-full">
               <button
                 onClick={() => {
                   setAddWithdrawModal(true),
                     setButtonFor("add"),
                     setSelectedPots(p);
                 }}
-                className="w-60 bg-zinc-200 rounded-md py-3 font-semibold"
+                className="w-1/2 lg:w-60 bg-zinc-200 rounded-md py-3 font-semibold"
               >
                 +Add Money
               </button>
@@ -100,7 +100,7 @@ function Pots() {
                     setButtonFor("withdraw"),
                     setSelectedPots(p);
                 }}
-                className="w-60 bg-zinc-200 rounded-md py-3 font-semibold"
+                className="w-1/2 lg:w-60 bg-zinc-200 rounded-md py-3 font-semibold"
               >
                 Withdraw
               </button>

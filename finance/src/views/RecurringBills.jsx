@@ -5,8 +5,8 @@ function RecurringBills() {
   return (
     <div>
       <HeaderSec headerText="Reccuring Bills" buttonDisplay="none" />
-      <div className="flex gap-4 w-full">
-        <div className="w-1/3 flex flex-col gap-4">
+      <div className="flex flex-col lg:flex-row gap-4 w-full">
+        <div className="w-full lg:w-1/3 flex flex-col md:flex-row lg:flex-col gap-4">
           <div className="bg-black w-full h-40 rounded-md p-5 text-zinc-200 flex flex-col justify-end">
             <p className="text-sm font-semibold">Total Bills</p>
             <p className="text-3xl font-bold">$384.98</p>
@@ -36,7 +36,7 @@ function RecurringBills() {
           </div>
         </div>
 
-        <div className="bg-white mb-3 w-8/12 rounded-md p-5">
+        <div className="bg-white mb-3 w-full lg:w-8/12 rounded-md p-5">
           <div className="flex justify-between">
             <div className="w-80 h-10 border border-black rounded-lg p-2">
               <input
@@ -45,7 +45,7 @@ function RecurringBills() {
                 className="w-full h-full outline-none"
               />
             </div>
-            <div className="flex justify-center items-center gap-2">
+            <div className="hidden md:flex justify-center items-center gap-2">
               <p>Sort by</p>
               <select className="w-28 h-10 border border-black rounded-md">
                 <option value="latest">Latest</option>
@@ -58,18 +58,25 @@ function RecurringBills() {
             </div>
           </div>
           <div className="mt-8">
-            <div className="grid grid-cols-[7fr_3fr_3fr] text-zinc-400 text-sm px-3">
+            <div className="grid grid-cols-2 md:grid-cols-[7fr_3fr_3fr] text-zinc-400 text-sm px-3">
               <p>Bill Title</p>
-              <p>Due Date</p>
+              <p className="hidden md:block">Due Date</p>
               <p className="justify-self-end">Amount</p>
             </div>
             <hr className="my-3" />
             {Data.transactions.map((r, index) =>
               r.recurring ? (
                 <div key={index}>
-                  <div className="grid grid-cols-[7fr_3fr_3fr] px-3 text-lg items-center">
-                    <p className="font-bold text-black">{r.name}</p>
-                    <p className="text-sm text-green-600">Monthly-2nd</p>
+                  <div className="grid grid-cols-2 md:grid-cols-[7fr_3fr_3fr] px-3 text-lg items-center">
+                    <div>
+                      <p className="font-bold text-black">{r.name}</p>
+                      <p className="block md:hidden text-xs text-green-600">
+                        Monthly-2nd
+                      </p>
+                    </div>
+                    <p className="text-sm text-green-600 hidden md:block">
+                      Monthly-2nd
+                    </p>
                     <p className="justify-self-end text-black font-bold">
                       ${r.amount}
                     </p>
