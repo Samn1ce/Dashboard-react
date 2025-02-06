@@ -59,11 +59,13 @@ function App() {
         setSelectedPots={setSelectedPots}
       />
       {/* side nav */}
-      <div className="w-1/5 h-screen sticky top-0 z-10 bg-tintDark rounded-r-xl py-5">
+      <div className="w-full lg:w-1/5 h-12 lg:h-screen fixed lg:sticky bottom-0 lg:top-0 z-20 bg-tintDark lg:rounded-r-xl px-3 lg:py-5 lg:px-0">
         {/* title */}
-        <h1 className="font-bold text-3xl mx-8 mb-10 text-zinc-300">FINANCE</h1>
+        <h1 className="font-bold text-3xl mx-8 mb-10 text-zinc-300 hidden lg:block">
+          FINANCE
+        </h1>
         {/* nav buttons */}
-        <nav className="flex flex-col text-xs font-bold">
+        <nav className="flex md:gap-20 lg:gap-0 lg:flex-col text-xs font-bold h-full lg:h-auto">
           {[
             {
               path: "/",
@@ -91,29 +93,53 @@ function App() {
               label: "Recurring Bills",
             },
           ].map((item) => (
-            <NavLink key={item.path} to={item.path}>
+            <NavLink
+              className="w-full h-full lg:w-auto lg:h-auto pt-1"
+              key={item.path}
+              to={item.path}
+            >
               {({ isActive }) => (
-                <div
-                  className={`flex gap-7 h-10 max-w-64 rounded-r-lg text-left ${
-                    isActive ? "bg-white" : "text-gray-300"
-                  }`}
-                >
+                <>
                   <div
-                    className={`w-1 h-full ${isActive ? "bg-icons" : ""}`}
-                  ></div>
-                  {/*  */}
-                  <div className="flex items-center gap-4">
-                    {item.icon(isActive)}
-                    <div className="max-w-full">{item.label}</div>
+                    className={`hidden lg:flex gap-7 h-20 lg:h-10 lg:max-w-64 lg:rounded-r-lg lg:text-left ${
+                      isActive ? "bg-white" : "text-gray-300"
+                    }`}
+                  >
+                    <div
+                      className={`lg:w-1 lg:h-full ${
+                        isActive ? "bg-icons" : ""
+                      }`}
+                    ></div>
+                    {/*  */}
+                    <div className="flex items-center lg:gap-4">
+                      {item.icon(isActive)}
+                      <div className="lg:max-w-full hidden lg:block">
+                        {item.label}
+                      </div>
+                    </div>
                   </div>
-                </div>
+                  {/*  */}
+                  <div
+                    className={`flex flex-col justify-between items-center lg:hidden w-full h-full ${
+                      isActive ? "bg-white" : "text-gray-300"
+                    } rounded-t-md pt-1`}
+                  >
+                    <div>{item.icon(isActive)}</div>
+                    <div className="text-[10px] text-zinc-500">
+                      {item.label}
+                    </div>
+                    <div
+                      className={`w-full h-1 ${isActive ? "bg-icons" : ""}`}
+                    ></div>
+                  </div>
+                </>
               )}
             </NavLink>
           ))}
         </nav>
       </div>
       {/* content */}
-      <div className="w-3/4 mx-auto">
+      <div className="w-11/12 lg:w-3/4 mx-auto pb-10 lg:pb-0">
         <Outlet
           context={{
             modal,

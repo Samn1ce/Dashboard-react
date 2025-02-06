@@ -62,20 +62,20 @@ function Overview() {
       {/* TITLE */}
       <h1 className="text-3xl my-8 font-bold">Overview</h1>
       {/* PRICES div */}
-      <div className="flex justify-between items-center w-full gap-4">
-        <div className="rounded-lg flex flex-col gap-2 bg-tintDark text-zinc-300 p-5 w-1/6">
+      <div className="flex flex-col md:flex-row justify-between items-center w-full gap-4">
+        <div className="rounded-lg flex flex-col gap-2 bg-tintDark text-zinc-300 p-5 w-full md:w-1/6">
           <h3 className="text-xs text-gray-400 font-bold">Current Balance</h3>
           <h1 className="text-3xl font-semibold">
             ${Data.balance.current.toFixed(2)}
           </h1>
         </div>
-        <div className="rounded-lg flex flex-col gap-2 bg-white text-black p-5 w-1/6">
+        <div className="rounded-lg flex flex-col gap-2 bg-white text-black p-5 w-full md:w-1/6">
           <h3 className="text-xs text-gray-400 font-bold">Income</h3>
           <h1 className="text-3xl font-semibold">
             ${Data.balance.income.toFixed(2)}
           </h1>
         </div>
-        <div className="rounded-lg flex flex-col gap-2 bg-white text-black p-5 w-1/6">
+        <div className="rounded-lg flex flex-col gap-2 bg-white text-black p-5 w-full md:w-1/6">
           <h3 className="text-xs text-gray-400 font-bold">Expenses</h3>
           <h1 className="text-3xl font-semibold">
             ${Data.balance.expenses.toFixed(2)}
@@ -84,19 +84,19 @@ function Overview() {
       </div>
       {/* TABS OVERVIEW */}
       {/* grid-cols-[7fr,5fr] */}
-      <div className="w-full flex flex-wrap gap-4 border-2 my-5">
+      <div className="w-full flex flex-col lg:flex-row flex-wrap gap-4 my-5">
         {/* LHS */}
-        <div className="w-7/12 flex flex-col gap-4">
+        <div className="lg:w-7/12 flex flex-col gap-4 w-full">
           {/* POTS tab */}
-          <div className="p-5 grid gap-4 rounded-lg h-44 bg-white">
+          <div className="p-5 grid gap-4 rounded-lg lg:h-44 bg-white">
             <div className="flex justify-between">
               <h3 className="text-sm font-bold">Pots</h3>
               <div className="text-xs font-semibold text-zinc-400">
                 <NavLink to="/pots">See Details</NavLink>
               </div>
             </div>
-            <div className="flex gap-4 max-w-[500px]">
-              <div className="rounded-lg flex gap-4 items-center bg-gray-200 text-black p-5 w-1/2">
+            <div className="flex flex-col md:flex-row gap-4 max-w-[500px]">
+              <div className="rounded-lg flex gap-4 items-center bg-gray-200 text-black p-5 w-full md:w-1/2">
                 <IconPots />
                 <div>
                   <h3 className="text-xs text-gray-400 font-bold">
@@ -161,7 +161,7 @@ function Overview() {
           </div>
         </div>
         {/* RHS */}
-        <div className="flex flex-col gap-4 w-2/5">
+        <div className="flex flex-col gap-4 lg:w-2/5">
           {/* BUDGETS grid */}
           <div className="p-5 grid gap-4 rounded-lg bg-white">
             <div className="flex justify-between">
@@ -171,10 +171,10 @@ function Overview() {
               </div>
             </div>
             {/* PIE CHART & LIST */}
-            <div className="flex gap-4 max-w-[500px]">
-              <div className="flex mx-auto justify-center my-8">
+            <div className="flex gap-4 lg:max-w-[500px]">
+              <div className="flex flex-col md:flex-row mx-auto lg:justify-center justify-between md:my-8 w-full gap-8 md:gap-0">
                 {/* PIE CHART */}
-                <div className="relative w-60 h-60">
+                <div className="relative w-60 h-60 md:ml-40 lg:ml-auto">
                   <Doughnut data={doughnutData} options={doughnutOptions} />
                   <div className="absolute transform top-1/2 -translate-y-1/2 -translate-x-1/2 left-1/2 w-44 h-44 rounded-full bg-zinc-200/25 flex justify-center items-center">
                     <div className="w-36 h-36 rounded-full bg-white flex flex-col justify-center items-center">
@@ -186,7 +186,7 @@ function Overview() {
                   </div>
                 </div>
                 {/* LIST */}
-                <div className="grid gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-1 gap-4">
                   {doughnutData.labels.map((label, index) => (
                     <div
                       key={index}
