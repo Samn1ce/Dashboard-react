@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import IconCancel from "./icon/IconCancel";
 import Data from "../assets/data.json";
 
-function EditModal({
-  addEditModal,
-  setAddEditModal,
-  editModalType,
+function ModalEdit({
+  addModalEdit,
+  setAddModalEdit,
+  ModalEditType,
   closeModal,
   budgetToEdit,
   addModalType,
@@ -20,41 +20,41 @@ function EditModal({
   const [selectedTarget, setSelectedTarget] = useState("");
 
   useEffect(() => {
-    if (editModalType === "budgets" && budgetToEdit) {
+    if (ModalEditType === "budgets" && budgetToEdit) {
       setSelectedCategory(budgetToEdit.category);
       setMaxSpend(budgetToEdit.maximum);
       setSelectedTheme(budgetToEdit.theme);
-    } else if (editModalType === "pots" && potsToEdit) {
+    } else if (ModalEditType === "pots" && potsToEdit) {
       setSelectedName(potsToEdit.name);
       setSelectedTarget(potsToEdit.target);
       setSelectedTheme(potsToEdit.theme);
     }
-  }, [editModalType, budgetToEdit, potsToEdit]);
+  }, [ModalEditType, budgetToEdit, potsToEdit]);
 
   return (
     <div
       className={`fixed top-0 z-20 bg-black/70 w-full h-screen justify-center items-center ${
-        addEditModal ? "flex" : "hidden"
+        addModalEdit ? "flex" : "hidden"
       }`}
     >
       <div className="bg-white w-[560px] rounded-md py-5 px-8 flex flex-col gap-4">
         <div className="flex justify-between items-center">
           <p className="text-3xl font-bold">
-            {editModalType === "pots" ? "Edit Pots" : "Edit Budget"}
+            {ModalEditType === "pots" ? "Edit Pots" : "Edit Budget"}
           </p>
           <IconCancel onClick={closeModal} />
         </div>
         <p className="text-zinc-600">
-          {editModalType === "budgets"
+          {ModalEditType === "budgets"
             ? "As your budgets change, feel free to update your spending limits."
             : "If your saving targets change, feel free to update your pots"}
         </p>
         <div className="w-full flex flex-col gap-4">
           <div className="w-full">
             <p className="font-semibold text-zinc-500 text-sm">
-              {editModalType === "pots" ? "Pot Name" : "Budget Category"}
+              {ModalEditType === "pots" ? "Pot Name" : "Budget Category"}
             </p>
-            {editModalType === "pots" ? (
+            {ModalEditType === "pots" ? (
               <div className="w-full border border-black h-10 rounded-md py-1 px-5">
                 <input
                   type="text"
@@ -70,7 +70,7 @@ function EditModal({
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
                 <option value="" disabled>
-                  {editModalType === "budgets" ? "Select a Category" : ""}
+                  {ModalEditType === "budgets" ? "Select a Category" : ""}
                 </option>
                 {Data.budgets.map((b, index) => (
                   <option key={index} value={b.category}>
@@ -82,16 +82,16 @@ function EditModal({
           </div>
           <div className="w-full">
             <p className="font-semibold text-zinc-500 text-sm">
-              {editModalType === "budgets" ? "Maximum Spend" : "Target"}
+              {ModalEditType === "budgets" ? "Maximum Spend" : "Target"}
             </p>
             <div className="w-full border border-black h-10 rounded-md py-1 px-5 flex">
               <input type="text" disabled placeholder="$" className="w-3" />
               <input
                 type="number"
                 className="text-xl flex-grow outline-none px-2"
-                value={editModalType === "budgets" ? maxSpend : selectedTarget}
+                value={ModalEditType === "budgets" ? maxSpend : selectedTarget}
                 onChange={(e) =>
-                  editModalType === "budgets"
+                  ModalEditType === "budgets"
                     ? setMaxSpend(e.target.value)
                     : setSelectedTarget(e.target.value)
                 }
@@ -106,7 +106,7 @@ function EditModal({
               onChange={(e) => setSelectedTheme(e.target.value)}
             >
               <option value="" disabled>
-                {editModalType === "budgets" || addModalType === "pots"
+                {ModalEditType === "budgets" || addModalType === "pots"
                   ? "Select a Theme"
                   : ""}
               </option>
@@ -120,7 +120,7 @@ function EditModal({
           <button
             onClick={() => {
               // Add your save/update logic here
-              setAddEditModal(false);
+              setAddModalEdit(false);
             }}
             className="bg-zinc-900 w-full p-3 rounded-md font-semibold text-zinc-200"
           >
@@ -132,14 +132,14 @@ function EditModal({
   );
 }
 
-EditModal.propTypes = {
-  addEditModal: PropTypes.bool,
-  setAddEditModal: PropTypes.func,
-  editModalType: PropTypes.string,
+ModalEdit.propTypes = {
+  addModalEdit: PropTypes.bool,
+  setAddModalEdit: PropTypes.func,
+  ModalEditType: PropTypes.string,
   closeModal: PropTypes.func.isRequired,
   budgetToEdit: PropTypes.object,
   addModalType: PropTypes.string,
   potsToEdit: PropTypes.object,
 };
 
-export default EditModal;
+export default ModalEdit;

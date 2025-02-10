@@ -11,13 +11,13 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 function Budget() {
   const {
     setModal,
-    setAddEditModal,
+    setAddModalEdit,
     setDeleteModal,
     setBudgetToEdit,
     setaddModalType,
     setDropdownType,
     dropdownType,
-    setEditModalType,
+    setModalEditType,
   } = useOutletContext();
 
   // Rest of your existing setup code remains the same
@@ -58,8 +58,8 @@ function Budget() {
 
   useEffect(() => {
     setDropdownType("budgets");
-    setEditModalType("budgets");
-  }, [setDropdownType, setEditModalType]);
+    setModalEditType("budgets");
+  }, [setDropdownType, setModalEditType]);
 
   return (
     <div className="w-full mx-auto max-w-7xl">
@@ -129,7 +129,7 @@ function Budget() {
                     <p className="text-2xl font-bold">{b.category}</p>
                   </div>
                   <MenuDropDown
-                    setAddEditModal={setAddEditModal}
+                    setAddModalEdit={setAddModalEdit}
                     setDeleteModal={setDeleteModal}
                     setBudgetToEdit={setBudgetToEdit}
                     index={index}

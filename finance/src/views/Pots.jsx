@@ -9,11 +9,11 @@ function Pots() {
     setBudgetToEdit,
     setDeleteModal,
     setAddModalType,
-    setAddEditModal,
+    setAddModalEdit,
     setModal,
     setDropdownType,
     dropdownType,
-    setEditModalType,
+    setModalEditType,
     setPotsToEdit,
     setAddWithdrawModal,
     setButtonFor,
@@ -22,8 +22,8 @@ function Pots() {
 
   useEffect(() => {
     setDropdownType("pots");
-    setEditModalType("pots");
-  }, [setDropdownType, setEditModalType]);
+    setModalEditType("pots");
+  }, [setDropdownType, setModalEditType]);
 
   return (
     <div className="w-full mx-auto max-w-7xl">
@@ -50,7 +50,7 @@ function Pots() {
                 <p className="font-bold">{p.name}</p>
               </div>
               <MenuDropDown
-                setAddEditModal={setAddEditModal} // or whatever modal state setter you have
+                setAddModalEdit={setAddModalEdit} // or whatever modal state setter you have
                 setDeleteModal={setDeleteModal}
                 setBudgetToEdit={setBudgetToEdit}
                 setDropdownType={setDropdownType}

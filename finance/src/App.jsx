@@ -5,16 +5,16 @@ import IconTransaction from "./components/icon/IconTransaction";
 import IconBudget from "./components/icon/IconBudget";
 import IconPots from "./components/icon/IconPots";
 import IconRb from "./components/icon/IconRb";
-import EditModal from "./components/EditModal.jsx";
+import ModalEdit from "./components/ModalEdit";
 import DeleteBudget from "./components/DeleteBudget";
 import AddModal from "./components/AddModal";
 import AddWithdraw from "./components/AddWithdraw";
 
 function App() {
   const [modal, setModal] = useState(false);
-  const [addEditModal, setAddEditModal] = useState(false);
+  const [addModalEdit, setAddModalEdit] = useState(false);
   const [addWithdrawModal, setAddWithdrawModal] = useState(false);
-  const [editModalType, setEditModalType] = useState(null);
+  const [ModalEditType, setModalEditType] = useState(null);
   const [addModalType, setAddModalType] = useState(null);
   const [dropdownType, setDropdownType] = useState(null);
   const [buttonFor, setButtonFor] = useState(null);
@@ -28,7 +28,7 @@ function App() {
     setModal(false);
     setBudgetToEdit(null);
     setAddModalType(null);
-    setAddEditModal(false);
+    setAddModalEdit(false);
     setAddWithdrawModal(false);
   };
 
@@ -42,10 +42,10 @@ function App() {
         setAddModalType={setAddModalType}
       />
       <DeleteBudget deleteModal={deleteModal} setDeleteModal={setDeleteModal} />
-      <EditModal
-        addEditModal={addEditModal}
-        setAddEditModal={setAddEditModal}
-        editModalType={editModalType}
+      <ModalEdit
+        addModalEdit={addModalEdit}
+        setAddModalEdit={setAddModalEdit}
+        ModalEditType={ModalEditType}
         budgetToEdit={budgetToEdit}
         potsToEdit={potsToEdit}
         closeModal={closeModal}
@@ -144,13 +144,13 @@ function App() {
           context={{
             modal,
             setModal,
-            setAddEditModal,
+            setAddModalEdit,
             setDeleteModal,
             setBudgetToEdit,
             setPotsToEdit,
             setAddModalType,
-            editModalType,
-            setEditModalType,
+            ModalEditType,
+            setModalEditType,
             dropdownType,
             setDropdownType,
             setAddWithdrawModal,

@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 
 function MenuDropDown({
-  setAddEditModal,
+  setAddModalEdit,
   setDeleteModal,
   setBudgetToEdit,
   setPotsToEdit,
@@ -47,7 +47,7 @@ function MenuDropDown({
         theme: pots.theme,
       });
     }
-    setAddEditModal(true); // Open modal
+    setAddModalEdit(true); // Open modal
   };
 
   const handleDeleteClick = (e) => {
@@ -89,7 +89,7 @@ function MenuDropDown({
 }
 
 MenuDropDown.propTypes = {
-  setAddEditModal: PropTypes.func.isRequired,
+  setAddModalEdit: PropTypes.func.isRequired,
   setDeleteModal: PropTypes.func.isRequired,
   setBudgetToEdit: PropTypes.func,
   setPotsToEdit: PropTypes.func,
