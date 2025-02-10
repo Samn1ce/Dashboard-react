@@ -2,6 +2,29 @@ import HeaderSec from "../components/HeaderSec";
 import Data from "../assets/data.json";
 
 function RecurringBills() {
+  const getFormattedDate = (dateString) => {
+    // Extract the day from the ISO date string
+    const date = new Date(dateString);
+    const day = date.getDate();
+
+    // Function to determine the ordinal suffix (st, nd, rd, th)
+    const ordinalSuffix = (d) => {
+      if (d > 3 && d < 21) return "th"; // Covers 11th-19th
+      switch (d % 10) {
+        case 1:
+          return "st";
+        case 2:
+          return "nd";
+        case 3:
+          return "rd";
+        default:
+          return "th";
+      }
+    };
+
+    return `Monthly-${day}${ordinalSuffix(day)}`;
+  };
+
   return (
     <div>
       <HeaderSec headerText="Reccuring Bills" buttonDisplay="none" />
@@ -71,11 +94,11 @@ function RecurringBills() {
                     <div>
                       <p className="font-bold text-black">{r.name}</p>
                       <p className="block md:hidden text-xs text-green-600">
-                        Monthly-2nd
+                        {getFormattedDate(r.date)}
                       </p>
                     </div>
                     <p className="text-sm text-green-600 hidden md:block">
-                      Monthly-2nd
+                      {getFormattedDate(r.date)}
                     </p>
                     <p className="justify-self-end text-black font-bold">
                       ${r.amount}
