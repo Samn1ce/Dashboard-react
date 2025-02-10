@@ -1,5 +1,7 @@
+import { useMemo, useState } from "react";
 import HeaderSec from "../components/HeaderSec";
 import Data from "../assets/data.json";
+import IconSort from "../components/icon/IconSort";
 
 function RecurringBills() {
   const getFormattedDate = (dateString) => {
@@ -29,6 +31,43 @@ function RecurringBills() {
     (sum, b) => sum + b.recurring,
     0
   );
+
+  const [sortBy, setSortBy] = useState("latest");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredAndSortedRecurred = useMemo(() => {
+    let processed = [...Data.transactions];
+
+    // First apply search filter
+    if (searchQuery) {
+      processed = processed.filter((t) =>
+        t.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    // Then apply category filter
+
+    // Finally apply sorting
+    switch (sortBy) {
+      case "latest":
+        return processed.sort((a, b) => new Date(b.date) - new Date(a.date));
+      case "oldest":
+        return processed.sort((a, b) => new Date(a.date) - new Date(b.date));
+      case "aToZ":
+        return processed.sort((a, b) => a.name.localeCompare(b.name));
+      case "zToA":
+        return processed.sort((a, b) => b.name.localeCompare(a.name));
+      case "highest":
+        return processed.sort((a, b) => a.amount - b.amount);
+      case "lowest":
+        return processed.sort((a, b) => b.amount - a.amount);
+      default:
+        return processed;
+    }
+  }, [sortBy, searchQuery]);
+
+  const [openSort, setOpenSort] = useState(false);
+
   return (
     <div>
       <HeaderSec headerText="Reccuring Bills" buttonDisplay="none" />
@@ -64,17 +103,43 @@ function RecurringBills() {
         </div>
 
         <div className="bg-white mb-3 w-full lg:w-8/12 rounded-md p-5">
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center gap-4 md:gap-0 relative">
             <div className="w-80 h-10 border border-black rounded-lg p-2">
               <input
                 type="text"
                 placeholder="Search bills"
                 className="w-full h-full outline-none"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
+            <IconSort onClick={() => setOpenSort(!openSort)} />
+            <div
+              className={`${
+                openSort ? "block" : "hidden"
+              } absolute top-10 right-0 bg-white w-24 text-xl justify-center items-center rounded-md border border-zinc-200 shadow-lg p-2`}
+            >
+              <div onClick={() => setSortBy("latest")}>Latest</div>
+              <hr className="my-2" />
+              <div onClick={() => setSortBy("oldest")}>Oldest</div>
+              <hr className="my-2" />
+              <div onClick={() => setSortBy("aToZ")}>A to Z</div>
+              <hr className="my-2" />
+              <div onClick={() => setSortBy("zToA")}>Z to A</div>
+              <hr className="my-2" />
+              <div onClick={() => setSortBy("highest")}>Highest</div>
+              <hr className="my-2" />
+              <div onClick={() => setSortBy("lowest")}>Lowest</div>
+            </div>
             <div className="hidden md:flex justify-center items-center gap-2">
-              <p>Sort by</p>
-              <select className="w-28 h-10 border border-black rounded-md">
+              <p className="block">Sort by</p>
+              <select
+                value={sortBy}
+                onChange={(e) => {
+                  setSortBy(e.target.value), setOpenSort(false);
+                }}
+                className="w-28 h-10 border border-black rounded-md"
+              >
                 <option value="latest">Latest</option>
                 <option value="oldest">Oldest</option>
                 <option value="aToZ">A to Z</option>
@@ -91,7 +156,7 @@ function RecurringBills() {
               <p className="justify-self-end">Amount</p>
             </div>
             <hr className="my-3" />
-            {Data.transactions.map((r, index) =>
+            {filteredAndSortedRecurred.map((r, index) =>
               r.recurring ? (
                 <div key={index}>
                   <div className="grid grid-cols-2 md:grid-cols-[7fr_3fr_3fr] px-3 text-lg items-center">
