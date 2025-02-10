@@ -5,7 +5,7 @@ import IconTransaction from "./components/icon/IconTransaction";
 import IconBudget from "./components/icon/IconBudget";
 import IconPots from "./components/icon/IconPots";
 import IconRb from "./components/icon/IconRb";
-import EditModal from "./components/EditModal";
+import EditModal from "./components/EditModal.jsx";
 import DeleteBudget from "./components/DeleteBudget";
 import AddModal from "./components/AddModal";
 import AddWithdraw from "./components/AddWithdraw";
