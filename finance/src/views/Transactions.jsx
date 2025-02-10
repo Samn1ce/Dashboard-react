@@ -174,7 +174,7 @@ function Transactions() {
                 <div key={index} className="w-full">
                   <div className="w-full grid grid-cols-2 md:grid-cols-[7fr_5fr_4fr] lg:grid-cols-3">
                     <div className="flex">
-                      <img src="" alt="" />
+                      <img src={t.avatar} alt="" />
                       <div>
                         <p className="font-bold text-sm">{t.name}</p>
                         <p className="text-xs md:hidden">{t.category}</p>
@@ -193,7 +193,7 @@ function Transactions() {
                         {t.amount >= 0 ? "+" : ""}
                         {t.amount.toFixed(2)}
                       </p>
-                      <p className="text-xs justify-self-end">
+                      <p className="block md:hidden text-xs justify-self-end">
                         {formattedDate}
                       </p>
                     </div>
