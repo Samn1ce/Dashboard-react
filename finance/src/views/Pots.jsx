@@ -90,7 +90,7 @@ function Pots() {
                     setButtonFor("add"),
                     setSelectedPots(p);
                 }}
-                className="w-1/2 lg:w-60 bg-zinc-200 rounded-md py-3 font-semibold"
+                className="w-1/2 bg-zinc-200 rounded-md py-3 font-semibold"
               >
                 +Add Money
               </button>
@@ -100,7 +100,7 @@ function Pots() {
                     setButtonFor("withdraw"),
                     setSelectedPots(p);
                 }}
-                className="w-1/2 lg:w-60 bg-zinc-200 rounded-md py-3 font-semibold"
+                className="w-1/2 bg-zinc-200 rounded-md py-3 font-semibold"
               >
                 Withdraw
               </button>
