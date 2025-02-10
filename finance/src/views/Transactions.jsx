@@ -102,7 +102,7 @@ function Transactions() {
   };
 
   return (
-    <div>
+    <div className="w-full mx-auto max-w-7xl">
       <h1 className="text-3xl font-bold my-8">Transactions</h1>
       <div className="bg-white w-full rounded-md p-3 md:p-10">
         {/* Search & Dropdowns */}

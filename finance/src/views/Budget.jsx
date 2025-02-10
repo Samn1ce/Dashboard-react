@@ -62,7 +62,7 @@ function Budget() {
   }, [setDropdownType, setEditModalType]);
 
   return (
-    <div className="w-full">
+    <div className="w-full mx-auto max-w-7xl">
       <HeaderSec
         setModal={setModal}
         setaddModalType={setaddModalType}

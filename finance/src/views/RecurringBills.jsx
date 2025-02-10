@@ -69,7 +69,7 @@ function RecurringBills() {
   const [openSort, setOpenSort] = useState(false);
 
   return (
-    <div>
+    <div className="max-w-7xl mx-auto">
       <HeaderSec headerText="Reccuring Bills" buttonDisplay="none" />
       <div className="flex flex-col lg:flex-row gap-4 w-full">
         <div className="w-full lg:w-1/3 flex flex-col md:flex-row lg:flex-col gap-4">

@@ -58,7 +58,7 @@ function Overview() {
   const currentPots = Data.pots.slice(0, showPots);
 
   return (
-    <div className="w-full">
+    <div className="w-full mx-auto max-w-7xl">
       {/* TITLE */}
       <h1 className="text-3xl my-8 font-bold">Overview</h1>
       {/* PRICES div */}
