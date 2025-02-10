@@ -25,6 +25,10 @@ function RecurringBills() {
     return `Monthly-${day}${ordinalSuffix(day)}`;
   };
 
+  const totalRecurred = Data.transactions.reduce(
+    (sum, b) => sum + b.recurring,
+    0
+  );
   return (
     <div>
       <HeaderSec headerText="Reccuring Bills" buttonDisplay="none" />
@@ -32,7 +36,7 @@ function RecurringBills() {
         <div className="w-full lg:w-1/3 flex flex-col md:flex-row lg:flex-col gap-4">
           <div className="bg-black w-full h-40 rounded-md p-5 text-zinc-200 flex flex-col justify-end">
             <p className="text-sm font-semibold">Total Bills</p>
-            <p className="text-3xl font-bold">$384.98</p>
+            <p className="text-3xl font-bold">${totalRecurred}</p>
           </div>
           <div className="bg-white w-full h-40 rounded-md p-5 flex flex-col justify-end">
             <p className="font-semibold mb-2">Summary</p>
