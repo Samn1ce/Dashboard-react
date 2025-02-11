@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import Data from "../assets/data.json";
+import Data from "../utils/data.json";
 
 function Transactions() {
   const [sortBy, setSortBy] = useState("latest");
@@ -173,14 +173,20 @@ function Transactions() {
               return (
                 <div key={index} className="w-full">
                   <div className="w-full grid grid-cols-2 md:grid-cols-[7fr_5fr_4fr] lg:grid-cols-3">
-                    <div className="flex">
-                      <img src={t.avatar} alt="" />
+                    <div className="flex gap-4 items-center">
+                      <img
+                        src={t.avatar}
+                        alt=""
+                        className="w-8 h-8 rounded-full"
+                      />
                       <div>
-                        <p className="font-bold text-sm">{t.name}</p>
+                        <p className="font-bold text-sm md:text-base">
+                          {t.name}
+                        </p>
                         <p className="text-xs md:hidden">{t.category}</p>
                       </div>
                     </div>
-                    <div className="hidden md:flex justify-between text-zinc-500">
+                    <div className="hidden md:flex justify-between items-center text-zinc-500">
                       <p>{t.category}</p>
                       <p>{formattedDate}</p>
                     </div>

@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { NavLink } from "react-router-dom";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import Data from "../assets/data.json";
+import Data from "../utils/data.json";
 import IconPots from "../components/icon/IconPots";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -138,7 +138,10 @@ function Overview() {
                 return (
                   <div key={index}>
                     <div className="flex justify-between items-center py-3">
-                      <h6 className="text-xs font-bold">{c.name}</h6>
+                      <div className="flex justify-center items-center gap-4">
+                        <img src={c.avatar} className="w-8 h-8 rounded-full" />
+                        <h6 className="text-xs font-bold">{c.name}</h6>
+                      </div>
                       <div className="text-right flex flex-col gap-2">
                         <div
                           className={`text-sm font-bold ${

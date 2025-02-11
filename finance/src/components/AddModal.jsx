@@ -1,6 +1,6 @@
 import { useState } from "react";
 import IconCancel from "./icon/IconCancel";
-import Data from "../assets/data.json";
+import Data from "../utils/data.json";
 
 // eslint-disable-next-line react/prop-types
 function AddModal({ modal, setModal, closeModal, addModalType }) {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import IconCancel from "./icon/IconCancel";
-import Data from "../assets/data.json";
+import Data from "../utils/data.json";
 
 function ModalEdit({
   addModalEdit,

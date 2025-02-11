@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import Data from "../assets/data.json";
+import Data from "../utils/data.json";
 import HeaderSec from "../components/HeaderSec";
 import MenuDropDown from "../components/MenuDropDown";
 
@@ -180,7 +180,13 @@ function Budget() {
                   {getLatestTransactions(b.category).map((t, index) => (
                     <div key={index}>
                       <div className="flex justify-between items-center">
-                        <p className="font-semibold">{t.name}</p>
+                        <div className="flex justify-center items-center gap-4">
+                          <img
+                            src={t.avatar}
+                            className="w-8 h-8 rounded-full"
+                          />
+                          <p className="font-semibold">{t.name}</p>
+                        </div>
                         <div className="text-sm text-right">
                           <p className="font-bold">${t.amount.toFixed(2)}</p>
                           <p className="text-zinc-500">

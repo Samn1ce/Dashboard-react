@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import HeaderSec from "../components/HeaderSec";
-import Data from "../assets/data.json";
+import Data from "../utils/data.json";
 import MenuDropDown from "../components/MenuDropDown";
 
 function Pots() {

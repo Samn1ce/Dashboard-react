@@ -33,7 +33,7 @@ function App() {
   };
 
   return (
-    <div className="w-full flex bg-gray-200">
+    <div className="w-full flex bg-gray-100">
       <AddModal
         modal={modal}
         setModal={setModal}

@@ -6,7 +6,7 @@
   },
   "transactions": [
     {
-      "avatar": "./assets/images/avatars/emma-richardson.jpg",
+      "avatar": "../assets/images/avatars/emma-richardson.jpg",
       "name": "Emma Richardson",
       "category": "General",
       "date": "2024-08-19T14:23:11Z",
