@@ -103,7 +103,7 @@ function RecurringBills() {
         </div>
 
         <div className="bg-white mb-3 w-full lg:w-8/12 rounded-md p-5">
-          <div className="flex justify-between items-center gap-4 md:gap-0 relative">
+          <div className="flex justify-between items-center gap-8 md:gap-0 relative">
             <div className="w-80 h-10 border border-black rounded-lg p-2">
               <input
                 type="text"
