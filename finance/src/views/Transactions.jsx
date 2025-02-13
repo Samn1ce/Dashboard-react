@@ -103,6 +103,7 @@ function Transactions() {
     setCurrentPage(pageNumber);
   };
 
+  const [openCategory, setOpenCategory] = useState(false);
   const [openSort, setOpenSort] = useState(false);
 
   return (
@@ -110,7 +111,7 @@ function Transactions() {
       <h1 className="text-3xl font-bold my-8">Transactions</h1>
       <div className="bg-white w-full rounded-md p-3 md:p-10">
         {/* Search & Dropdowns */}
-        <div className="w-full flex justify-between items-center mb-10">
+        <div className="w-full flex justify-between items-center mb-10 relative">
           <div className="lg:w-80 h-10 border border-black rounded-lg p-2">
             <input
               type="text"
@@ -120,11 +121,15 @@ function Transactions() {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          <IconSort onClick={() => setOpenSort(!openSort)} />
+          <IconSort
+            onClick={() => {
+              setOpenSort(!openSort), setOpenCategory(!openCategory);
+            }}
+          />
           <div
             className={`${
-              openSort ? "block" : "hidden"
-            } absolute top-10 right-0 bg-white w-24 text-xl justify-center items-center rounded-md border border-zinc-200 shadow-lg p-2`}
+              openSort ? "flex" : "hidden"
+            } absolute top-12 right-16 bg-white w-24 text-xl flex-col justify-center rounded-md border border-zinc-200 shadow-lg p-2`}
           >
             <div onClick={() => setSortBy("latest")}>Latest</div>
             <hr className="my-2" />
@@ -138,7 +143,32 @@ function Transactions() {
             <hr className="my-2" />
             <div onClick={() => setSortBy("lowest")}>Lowest</div>
           </div>
-          <IconFilter />
+          <IconFilter
+            onClick={() => {
+              setOpenCategory(!openCategory), setOpenCategory(!openCategory);
+            }}
+          />
+          <div
+            className={`${
+              openCategory ? "flex" : "hidden"
+            } absolute top-12 right-0 bg-white w-40 text-xl flex-col justify-center rounded-md border border-zinc-200 shadow-lg p-2`}
+          >
+            <div onClick={() => setCategory("all")}>All Transactions</div>
+            <hr className="my-2" />
+            <div onClick={() => setCategory("entertainment")}>
+              Entertainment
+            </div>
+            <hr className="my-2" />
+            <div onClick={() => setCategory("bills")}>Bills</div>
+            <hr className="my-2" />
+            <div onClick={() => setCategory("groceries")}>Groceries</div>
+            <hr className="my-2" />
+            <div onClick={() => setCategory("drivingOut")}>Driving Out</div>
+            <hr className="my-2" />
+            <div onClick={() => setCategory("transportation")}>
+              Transportation
+            </div>
+          </div>
           <div className="flex gap-8">
             <div className="hidden md:flex justify-center items-center gap-2">
               <p className="text-xs lg:text-base">Sort by</p>
