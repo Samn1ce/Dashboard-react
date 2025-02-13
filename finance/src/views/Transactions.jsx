@@ -1,5 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import Data from "../utils/data.json";
+import IconSort from "../components/icon/IconSort";
+import IconFilter from "../components/icon/IconFilter";
 
 function Transactions() {
   const [sortBy, setSortBy] = useState("latest");
@@ -106,7 +108,7 @@ function Transactions() {
       <h1 className="text-3xl font-bold my-8">Transactions</h1>
       <div className="bg-white w-full rounded-md p-3 md:p-10">
         {/* Search & Dropdowns */}
-        <div className="w-full flex justify-between mb-10">
+        <div className="w-full flex justify-between items-center mb-10">
           <div className="lg:w-80 h-10 border border-black rounded-lg p-2">
             <input
               type="text"
@@ -116,6 +118,8 @@ function Transactions() {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
+          <IconSort />
+          <IconFilter />
           <div className="flex gap-8">
             <div className="hidden md:flex justify-center items-center gap-2">
               <p className="text-xs lg:text-base">Sort by</p>
@@ -172,7 +176,7 @@ function Transactions() {
 
               return (
                 <div key={index} className="w-full">
-                  <div className="w-full grid grid-cols-2 md:grid-cols-[7fr_5fr_4fr] lg:grid-cols-3">
+                  <div className="w-full grid grid-cols-[7fr_3fr] md:grid-cols-[7fr_5fr_4fr] lg:grid-cols-3">
                     <div className="flex gap-4 items-center">
                       <img
                         src={t.avatar}

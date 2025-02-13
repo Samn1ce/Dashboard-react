@@ -41,7 +41,13 @@ function App() {
         addModalType={addModalType}
         setAddModalType={setAddModalType}
       />
-      <DeleteBudget deleteModal={deleteModal} setDeleteModal={setDeleteModal} />
+      <DeleteBudget
+        deleteModal={deleteModal}
+        setDeleteModal={setDeleteModal}
+        budgetToEdit={budgetToEdit}
+        potsToEdit={potsToEdit}
+        ModalEditType={ModalEditType}
+      />
       <ModalEdit
         addModalEdit={addModalEdit}
         setAddModalEdit={setAddModalEdit}

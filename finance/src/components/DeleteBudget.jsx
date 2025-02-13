@@ -1,10 +1,16 @@
+import { useState } from "react";
 import IconCancel from "./icon/IconCancel";
 
 // eslint-disable-next-line react/prop-types
-function DeleteBudget({ deleteModal, setDeleteModal }) {
+function DeleteBudget({
+  deleteModal,
+  setDeleteModal,
+  budgetToEdit,
+  potsToEdit,
+}) {
   return (
     <div
-      className={`fixed top-0 z-20 bg-black/70 w-full h-screen justify-center items-center ${
+      className={`fixed top-0 z-20 bg-black/70 w-full h-screen justify-center items-center p-5 ${
         deleteModal ? "flex" : "hidden"
       }`}
     >

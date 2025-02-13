@@ -159,11 +159,13 @@ function RecurringBills() {
             {filteredAndSortedRecurred.map((r, index) =>
               r.recurring ? (
                 <div key={index}>
-                  <div className="grid grid-cols-2 md:grid-cols-[7fr_3fr_3fr] px-3 text-lg items-center">
+                  <div className="grid grid-cols-[7fr_3fr] md:grid-cols-[7fr_3fr_3fr] px-3 text-lg items-center">
                     <div>
-                      <div className="flex gap-4">
+                      <div className="flex items-center gap-4">
                         <img src={r.avatar} className="w-8 h-8 rounded-full" />
-                        <p className="font-semibold">{r.name}</p>
+                        <p className="font-bold text-sm md:text-base">
+                          {r.name}
+                        </p>
                       </div>
                       <p className="block md:hidden text-xs text-green-600">
                         {getFormattedDate(r.date)}
