@@ -103,6 +103,8 @@ function Transactions() {
     setCurrentPage(pageNumber);
   };
 
+  const [openSort, setOpenSort] = useState(false);
+
   return (
     <div className="w-full mx-auto max-w-7xl">
       <h1 className="text-3xl font-bold my-8">Transactions</h1>
@@ -118,7 +120,24 @@ function Transactions() {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          <IconSort />
+          <IconSort onClick={() => setOpenSort(!openSort)} />
+          <div
+            className={`${
+              openSort ? "block" : "hidden"
+            } absolute top-10 right-0 bg-white w-24 text-xl justify-center items-center rounded-md border border-zinc-200 shadow-lg p-2`}
+          >
+            <div onClick={() => setSortBy("latest")}>Latest</div>
+            <hr className="my-2" />
+            <div onClick={() => setSortBy("oldest")}>Oldest</div>
+            <hr className="my-2" />
+            <div onClick={() => setSortBy("aToZ")}>A to Z</div>
+            <hr className="my-2" />
+            <div onClick={() => setSortBy("zToA")}>Z to A</div>
+            <hr className="my-2" />
+            <div onClick={() => setSortBy("highest")}>Highest</div>
+            <hr className="my-2" />
+            <div onClick={() => setSortBy("lowest")}>Lowest</div>
+          </div>
           <IconFilter />
           <div className="flex gap-8">
             <div className="hidden md:flex justify-center items-center gap-2">
